@@ -1,2 +1,5 @@
-# zubax_dsdl
-Public unregulated vendor-specific DSDL definitions
+# Zubax UAVCAN DSDL
+
+Public unregulated vendor-specific UAVCAN DSDL definitions.
+
+The background is explained at [new.uavcan.org](https://new.uavcan.org).

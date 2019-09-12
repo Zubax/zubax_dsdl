@@ -1,0 +1,67 @@
+#
+# Zubax Robotics global telemetry datagram format for use over UDP/IP.
+#
+# This message is a container for application-level data that is delivered over the public Internet to
+# the Zubax telemetry collection server. It is not intended for use as a UAVCAN message.
+#
+# Normally, the message shall be encrypted with an RSA-1776 public key, to be decrypted by the server.
+#
+
+# The default UDP port to send these reports to.
+# The default host is "samosbor.zubax.com".
+uint16 UDP_SERVER_PORT = 0x525A
+
+# The magic is also used for protocol version detection.
+uint32 protocol_magic
+uint32 CORRECT_PROTOCOL_MAGIC = 0x_11_78_62_5A
+
+# Same as uavcan.node.GetInfo; e.g., "com.zubax.babel_fd"; trailing unused characters shall be zeros.
+# UAVCAN permits longer names but we don't need that.
+uint8[28] device_type_name
+
+# Like uavcan.node.GetInfo.
+uint8[16] device_unique_id
+
+@assert _offset_ % 64 == {0}
+# Like uavcan.node.GetInfo.
+uint64 device_software_vcs_revision_id
+
+@assert _offset_ % 64 == {0}
+# A new value is generated when the device is started, then used until the device is powered off or reset.
+# New values shall be unlikely to have occurred earlier. A robust way of ensuring this is to
+# store a counter in a non-volatile memory, incrementing it each time the device is booted.
+# If the device lacks a robust non-volatile storage or if that approach is otherwise undesirable,
+# this could be replaced by a random number generated anew every boot.
+# The purpose of this field is to let the server detect when the sequence number is expected to be reset.
+uint64 run_id
+
+@assert _offset_ % 64 == {0}
+# Whenever a new datagram is sent, this value shall be incremented by one.
+# When the device is started, this value shall be zero-initialized.
+uint64 datagram_sequence_number
+
+# Like uavcan.node.GetInfo.
+uavcan.node.Version.1.0 device_hardware_version
+uavcan.node.Version.1.0 device_software_version
+
+void16
+
+# A device-specific value describing how to interpret the payload.
+uint8 payload_type_id
+
+# Application-level encoded payload. The implicit array length field is 8 bits long.
+uint8 PAYLOAD_CAPACITY = 131
+uint8[<=PAYLOAD_CAPACITY] payload
+
+# Ensure the payload is aligned at least at 16 bytes. This guarantee simplifies manual serialization.
+@assert _offset_.min % 128 == 0
+
+# The size of the header including the implicit payload length field.
+@assert _offset_.min / 8 == 80
+
+# One UAVCAN-tunneled UDP frame can carry up to 261 bytes of payload.
+# An RSA-1776 encrypted plaintext can be up to 211 bytes large.
+# Encryption approach: the device keeps the public key, the server has the private key.
+# Data sent by the device is encrypted with the public key, only the server can read the data.
+# Data sent by the server is signed with the private key (digest SHA-512), the device can validate its authenticity.
+@assert _offset_.max / 8 == 211

@@ -1,0 +1,10 @@
+language: python
+python:
+  - "3.7"
+
+before_install:
+  - pip install pydsdl>=0.7
+  - git clone https://github.com/UAVCAN/public_regulated_data_types --branch uavcan-v1.0
+
+script:
+  - ./test.py

@@ -1,0 +1,21 @@
+#
+# Low-level CAN bus errors detected by the CAN controller hardware. One increment per error.
+#
+
+# Bad frame format.
+uint48 form
+
+# A transmitted frame has not been acknowledged by anyone.
+uint48 ack
+
+# The CAN controller tried to send a dominant bit, but the monitored value was recessive.
+uint48 bit_dominant
+
+# The CAN controller tried to send a recessive bit, but the monitored value was dominant.
+# When the described condition occurs during the arbitration phase, this counter shall not be incremented.
+uint48 bit_recessive
+
+# The CRC value of a received frame did not match.
+uint48 crc
+
+void48

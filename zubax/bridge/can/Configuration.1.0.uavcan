@@ -1,0 +1,80 @@
+#
+# Generic CAN adapter configuration message.
+# This is a top-level type in this namespace.
+#
+# The adapter configuration interface is designed to be fully idempotent. The "master" (a node that controls the
+# adapter) publishes this configuration message periodically; additional out-of-band ad-hoc messages may be
+# inserted as needed. The controlled adapter(s) subscribes to the configuration messages, and whenever a
+# new message is received, it ensures that its current configuration matches that of the message, otherwise
+# the adapter updates its configuration accordingly. Shall an error occur, it is reported via the Status
+# message asynchronously.
+#
+# In this description, "adapter" and "bridge" are used interchangeably. The imperative "open the channel" means
+# that the adapter is to enter the active mode where it is bridging the CAN frames between the CAN bus and this
+# UAVCAN interface; likewise, "close the channel" means the return to the idle state, which is the default state.
+#
+# While idle, the adapter is required to avoid any activities on the bus.
+#
+# If the channel is already open and the new message commands another non-idle configuration with the
+# same bit rate, the adapter shall establish the new configuration without losing any incoming frames
+# or interrupting the transmission of outgoing frames. Practically, this means that the channel should
+# not be closed while the reconfiguration is in progress. If the new bit rate value is different, the
+# adapter is allowed to close the channel before establishing the new configuration. If the new configuration
+# cannot be applied, the adapter should close the channel and update the result code accordingly.
+#
+# The adapter shall be able to process a continuous stream of such messages without any adverse effects on its
+# data throughput. A viable tactic is to check each received message against the current configuration early
+# and drop (ignore) messages which command the configuration that is already established.
+#
+# A CAN adapter compatible with this subprotocol will have the following subjects:
+#
+# Subscriptions:
+#
+#   - Outgoing frame subject of type uavcan.metatransport.can.Frame.
+#     The adapter emits every frame received from this subject to the CAN bus.
+#     The timestamp of each frame contains the transmission deadline.
+#     If the timestamp is UNKNOWN (zero), the behavior is implementation-defined.
+#     Transmission of frames whose deadline is exceeded shall be aborted.
+#     The accuracy of deadline tracking is implementation-defined.
+#     Technically, the edge case where no deadline tracking is performed at all also fits this requirement
+#     (infinitely low accuracy).
+#     Unsupported frames (e.g. CAN FD on a classic CAN adapter) shall be dropped and reported via the feedback
+#     interface (see the dedicated section).
+#     The handling of CAN FD frames where the number of data bytes cannot be represented by a valid DLC value
+#     is implementation-defined.
+#
+#   - Standard time synchronization service uavcan.time.Synchronization. The adapter is a time sync slave.
+#     This feature ensures consistent timing information across the system.
+#     The behavior of the adapter when the time synchronization data is not available is implementation-defined.
+#
+# Publications:
+#
+#   - Incoming frame and error subject of type uavcan.metatransport.can.Frame.
+#     Every frame received from the bus is published via this subject; also, this subject carries
+#     bus error notifications in the form of a CAN frame message where the manifestation is set to "Error".
+#
+#   - Feedback frame subject of type uavcan.metatransport.can.Frame.
+#     Every successfully transmitted frame is republished here with the timestamp value indicating
+#     the moment of time when the frame was delivered to the bus.
+#     Every expired and unsupported frame is also republished here with timestamp value being UNKNOWN (zero).
+#
+#   - Bridge status message of type Status defined in this namespace. Read its description for more info.
+#
+
+# Physical layer configuration parameters.
+PhysicalConfig.1.0 physical_config
+
+@assert _offset_ % 8 == {0}
+
+void58
+
+# Empty array instructs the adapter to reject all frames.
+# This field should be ignored if the physical layer configuration commands the channel to be closed.
+# Silent mode with an empty filter configuration should not be used; otherwise, the behavior is implementation-defined.
+# If the underlying hardware does not implement the required number of filters, the missing filters (or all of them)
+# shall be implemented by the adapter's software/firmware.
+uint6 MAX_FILTERS = 32
+FilterConfig.1.0[<=MAX_FILTERS] filter_config
+
+@assert _offset_ % 8 == {0}
+@assert _offset_.max / 8 <= 313

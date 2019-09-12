@@ -1,0 +1,13 @@
+#
+# CAN frame statistics.
+#
+
+uint48 in_success       # Valid CAN frames received from the bus (data or RTR).
+uint48 in_overrun       # Received frames that had to be dropped due to buffer overruns.
+void48
+
+uint48 out_success      # CAN frames successfully emitted onto the bus before the deadline has expired.
+uint48 out_expired      # CAN frames that could not be transmitted before the deadline and have been aborted.
+uint48 out_overrun      # Outgoing frames that had to be dropped due to buffer overruns.
+uint48 out_unsupported  # Frames that could not be transmitted because they are not supported by the hardware.
+void48

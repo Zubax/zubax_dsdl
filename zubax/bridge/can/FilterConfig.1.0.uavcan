@@ -1,0 +1,12 @@
+#
+# CAN acceptance filter configuration.
+# In order to accept both extended and base frames, use two filters.
+# The interface does not differentiate between RTR and data frames - both accepted if the ID matches.
+#
+
+@union
+
+BaseFilterConfig.1.0     base
+ExtendedFilterConfig.1.0 extended
+
+@assert _offset_ == {16 * 2, 32 * 2}
