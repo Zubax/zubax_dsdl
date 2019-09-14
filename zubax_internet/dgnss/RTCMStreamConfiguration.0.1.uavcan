@@ -1,0 +1,68 @@
+#
+# A DGNSS/RTK rover sends messages of this type to the caster periodically.
+# The caster uses this information to configure the stream of RTCM messages sent back to the rover.
+# The caster shall compare the data received in each message against the current configuration of the stream and
+# update it as necessary.
+# Each rover is identified by its unique 128-bit ID, which is included in the message.
+# The caster shall be prepared to receive multiple requests originating from the same rover via different routes
+# and different remote host addresses; this is expected to happen if the client leverages a redundant modem
+# configuration. In this case, the caster shall provide the requested data to all remote hosts.
+# Streamed messages will be sent to the source UDP port number of the last valid request received by the caster.
+#
+#               ---------- (transport A) ----------
+#   +--------+ /                                   \ +-------+
+#   | CASTER +------------ (transport B) ------------+ ROVER |
+#   +--------+ \                ...                / +-------+
+#               ---------- (transport N) ----------
+#
+
+# The recommended temporal separation between adjacent messages.
+uint8 DEFAULT_MESSAGING_PERIOD = 1   # [second]
+
+# If the caster did not receive a request message in this amount of time, it may terminate the stream.
+uint8 MIN_STREAM_TIMEOUT = 60  # [second]
+
+# The 128-bit unique-ID of the device, as reported via uavcan.node.GetInfo.
+# Used for the response fragment sequence numbering and (optinally) billing purposes.
+uint8[16] device_unique_id
+
+# A customer-specific value that identifies the customer's account for billing purposes.
+# If not applicable, this value shall be set to zero by the rover and ignored by the caster.
+# Depending on the implementation, there may be a dedicated secret per unique-ID, or a shared secret for many UIDs.
+uint64 billing_secret
+
+# The latest navigation data from the rover.
+# This data is used by the caster to configure the RTCM stream (especially if a virtual base station is used).
+# The caster shall keep track of the latest received time estimate per rover's unique-ID and
+# use that state to drop reordered and duplicated requests.
+RoverSolution.0.1 solution
+
+void64  # Reserved.
+void64  # Reserved.
+void64  # Reserved.
+
+# The major version number of the RTCM standard supported by the rover.
+# If the caster does not support the requested version of the standard, no data will be sent to the rover.
+uint4 rtcm_major_version
+void6
+
+# The set of RTCM message types that the rover would like to receive.
+# The caster is allowed to provide more messages than requested and to deny messages that are not supported.
+# If a vendor-specific message is specified, all sub-messages should be assumed to be selected.
+# Advanced billing schemes may identify the set of supported messages depending on the billing secret.
+# The caster is encouraged to consider this information when choosing the optimal base station.
+uint16[<=40] requested_rtcm_messages
+
+@assert _offset_ % 16 == {0}  # Enforce the natural alignment of uint16s
+
+void2
+
+# The NTRIP-like ASCII name of the mount point on the caster; optional.
+# If not specified (empty), the caster shall select the mount point automatically based on the rover's position.
+# If the selected mountpoint does not exist, or a mountpoint cannot be selected automatically (e.g., no coverage
+# in the rover's region), the caster shall refuse to send any data.
+# Valid charset (POSIX regexp notation): [A-Za-z0-9\-_.]
+uint8[<=50] mount_point_name
+
+@assert _offset_ % 8 == {0}
+@assert _offset_.max / 8 <= 245     # Encryptable with RSA-2048, shall the need arise.

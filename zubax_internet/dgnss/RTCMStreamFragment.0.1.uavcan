@@ -1,0 +1,20 @@
+#
+# A fragment of RTCM stream sent from the caster to the rover.
+# The protocol is described in the documentation for the request message format.
+#
+
+# This field is used for enforcing the correct ordering and deduplication of chunks on the receiving side.
+# The caster shall maintain a dedicated sequence number counter per rover's unique-ID, so that the same
+# value is used across all endpoints (UDP ports) a given rover is connected through.
+# This is needed to allow simultaneous connections of the same rover through redundant transports.
+# The value shall be incremented by one with every transmitted chunk.
+# The original value may be arbitrary (not necessarily zero). The value shall not overflow.
+uint64 sequence_number
+
+void7
+
+# A chunk of RTCM data to be supplied to the rover's GNSS unit. The size may be arbitrary.
+uint8[<=299] data
+
+@assert _offset_ % 8 == {0}
+@assert _offset_.max / 8 <= 309     # Ensure the data fits into one UDP-over-UAVCAN response datagram.

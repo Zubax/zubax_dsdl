@@ -1,0 +1,24 @@
+#
+# Rover fix reported to the caster.
+# This is a nested message type; not to be used on its own.
+#
+
+# The TAI time of the last available navigation solution from the rover.
+# The value is the number of SI (i.e., fixed-length) microseconds since 1970-01-01-00:00:00Z TAI.
+# If the time is not (yet) known, the value shall be zero.
+uint64 time_tai_us                      # [microsecond]
+uint64 TIME_TAI_UNKNOWN = 0
+
+# The latest rover position information.
+# NaN indicates a missing estimate (no fix).
+float64 longitude_latitude              # [radian] NaN if unknown.
+float32 height_above_ellipsoid          # [meter] NaN if unknown.
+
+# The mean end-to-end latency of DGNSS data (base to rover) over the last ~10 seconds.
+# NaN if cannot be estimated.
+float32 age_of_differential_data        # [second]
+
+void64  # Reserved.
+void64  # Reserved.
+void64  # Reserved.
+void64  # Reserved.
