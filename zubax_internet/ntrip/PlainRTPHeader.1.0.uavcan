@@ -1,0 +1,141 @@
+#
+# 1. OVERVIEW
+#
+# This data type definition follows the layout of the "Plain RTP" datagram header as described in the
+# NTRIP v2 specification. This is essentially a subset of the format defined by the RTP standard optimized
+# for transferring RTCM streams over the public Internet.
+#
+# Since this is a header format definition, the payload is not included here. It is assumed that the
+# payload is to follow the header immediately; the payload length limits specified herein shall be followed.
+#
+# Unfortunately, the Plain RTP transport specification provided in the official NTRIP specification
+# is somewhat ambiguous and leaves room to interpretation. In order to prevent possible interoperability
+# issues, we hereby impose a set of additional constraints on the protocol. None of the additional constraints
+# are expected to contradict the official NTRIP specification.
+#
+# 2. SECURE TRANSPORT
+#
+# The first issue concerns network security. The NTRIP specification does not mention this explicitly,
+# so we rectify this issue here by stating that this RTP transport can be used on top of plain UDP as
+# well as DTLS. The application-layer functionality is invariant to the used transport (whether it's
+# encrypted (DTLS) or not (UDP)), hence it is not discussed further here. Compatible casters should
+# expose at least two distinct UDP ports: one for plain unencrypted connections and another for secure
+# DTLS connections.
+#
+# 3. STATELESS INTERFACE
+#
+# The second issue concerns statefulness.
+#
+# A "stateless interface", for the purposes of this discussion, is an interface where the participating agents
+# do not make non-trivial assumptions about the current functional state or reachability of the other agents.
+#
+# In general, stateful interfaces tend to require the application to implement additional logic to circumvent
+# their inherent fragility caused by the assumptions made about the state of the other agents.
+# The reason stateful interfaces are so widespread in the general Internet is that they are often significantly
+# more bandwidth- and processing-efficient than a stateless alternative would be.
+#
+# In a mission-critical setting, or in a setting where a continuous connectivity cannot be guaranteed,
+# stateful interfaces often perform poorly. A detailed discussion of the related technical matters would be
+# out of place in this description, so the further documentation will focus on the practical differences from
+# the standard Plain RTP transport defined by the NTRIP specification.
+#
+# The NTRIP specification defines several distinct types of messages for the Plain RTP transport sent from
+# the client to the caster: the HTTP setup request (sent when the streaming session is being initiated), the
+# keep-alive packet (sent periodically with no data to prevent termination of the stream), and the connection
+# termination request (sent at the end of the streaming session). This approach requires the client to make
+# assumptions about the current functional state of the caster and the ability of the outgoing packets to
+# reach the destination.
+#
+# Such behavioral sophistication is highly undesirable in the targeted application domain, hence the following
+# requirement is established: the communication interface between the client and the caster shall be limited
+# to the HTTP setup request only, which shall be idempotent.
+#
+# The client shall emit the request message with a fixed period which shall not be greater than the keep-alive
+# timeout value. The server shall avoid reconfiguring the stream if it is already configured per the data
+# contained in the request, thus manifesting its idempotency.
+#
+# The described requirements do not contradict the NTRIP specification, but rather define a limited subset of
+# the behaviors defined therein.
+#
+# 4. REDUNDANT TRANSPORTS
+#
+# There exists a certain class of applications that leverage modular redundancy to achieve their reliability
+# and/or service availability goals. In the context of the discussed interface, the important circumstance is
+# that a given GNSS rover system connectable to the caster may be equipped with multiple instances of the
+# Internet communication hardware (e.g., cellular modems) working in lockstep. A more detailed discussion
+# can be found in the documentation of the UDP/IP forwarding interface defined in the standard data type
+# set of UAVCAN.
+#
+#               ---------- (transport 0) ----------
+#   +--------+ /                                   \ +--------+
+#   | CLIENT +<----------- (transport 1) ----------->+ CASTER |
+#   +--------+ \                ...                / +--------+
+#               ---------- (transport N) ----------
+#
+# The important practical outcome of the above is that if a given client is equipped with a redundant set of
+# communication hardware, the caster will observe multiple simultaneous connections originating from distinct
+# remote Internet hosts. Such behavior does not violate any of the tenets of the official NTRIP specification.
+# However, it does result in certain ambiguities when it comes to the reassembly of the duplicated (redundant)
+# stream on the client side. In order to remove the ambiguities, the following additional requirement is
+# imposed:
+#
+# The values of the fields "sequence number", "timestamp", and the payload shall be invariant to the instance
+# of the remote host the data is sent toward. In other words, the values of the sequence number, the timestamp,
+# and the payload itself are found once for a given fragment of the RTCM stream originating from the NTRIP
+# server (source) before the data is forwarded to the client connections.
+#
+# The motivation behind this requirement is to permit clients to seamlessly reassemble the RTCM stream whose
+# fragments are delivered concurrently through multiple redundant connections.
+#
+# 5. HARD MTU LIMIT
+#
+# In order to ensure compatibility with UDP-over-UAVCAN tunneling, the size of the application payload
+# per RTP frame is limited. The respective constants are provided in this definition.
+#
+
+uint2 version               # Shall be equal VERSION_VALUE. Drop the datagram if not.
+uint2 VERSION_VALUE = 2
+
+void1   # P  - padding; not used in NTRIP.
+void1   # X  - extension; not used in NTRIP.
+void4   # CC - CSRC count; not used in NTRIP.
+@assert _offset_ / 8 == {1}
+void1   # M - marker; not used in NTRIP.
+
+# Specifies how the packet shall be interpreted. See the constants.
+uint7 payload_type
+
+# Sent from the caster to the client to stream RTCM data which is contained in the payload.
+uint7 PAYLOAD_TYPE_STREAM = 96
+
+# Sent from the client to the caster with the HTTP request contained in the payload.
+# Sent from the caster to the client with the HTTP response contained in the payload.
+uint7 PAYLOAD_TYPE_HTTP = 97
+
+@assert _offset_ / 8 == {2}
+
+# Defined per mountpoint; i.e., every client listening on the same mountpoint will receive data
+# in lockstep with each other, with the same sequence number uniquely identifying a given fragment
+# within its overflow period. This is necessary to ensure that a client being connected to the caster
+# over multiple redundant links can reassemble the stream from all available redundant communication
+# channels simultaneously.
+uint16 sequence_number
+
+# Defined per mountpoint, same as the sequence number field.
+uint32 timestamp    # 125 microseconds per LSB (tick rate 8 kHz).
+
+# Also known as "SSRC". Can be arbitrary in request messages.
+# In streaming messages, the value shall match that of the last valid request message.
+uint32 synchronization_source_id
+
+uint8 HEADER_SIZE = 12
+@assert _offset_ / 8 == {HEADER_SIZE}   # The payload is to immediately follow the header.
+
+# Constants from the NTRIP v2 specification.
+uint8 MAX_KEEP_ALIVE_PERIOD         = 20   # [second]
+uint8 CONNECTION_AUTO_CLOSE_TIMEOUT = 60   # [second]
+
+# Payload capacity limits that shall be followed in order to ensure compatibility with UDP-over-UAVCAN.
+# Datagrams containing larger payloads may be dropped by UAVCAN modems.
+uint16 CLIENT_TO_CASTER_PAYLOAD_CAPACITY = 261 - HEADER_SIZE    # [bytes]
+uint16 CASTER_TO_CLIENT_PAYLOAD_CAPACITY = 309 - HEADER_SIZE    # [bytes]
