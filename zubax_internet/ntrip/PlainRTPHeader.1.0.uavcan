@@ -92,6 +92,13 @@
 # In order to ensure compatibility with UDP-over-UAVCAN tunneling, the size of the application payload
 # per RTP frame is limited. The respective constants are provided in this definition.
 #
+# 6. COMPATIBILITY
+#
+# In order to facilitate compatibility with existing and future versions of the protocol,
+# the HTTP request message shall carry an additional header:
+#
+#   X-Connection: stateless,mtu=297
+#
 
 uint2 version               # Shall be equal VERSION_VALUE. Drop the datagram if not.
 uint2 VERSION_VALUE = 2
