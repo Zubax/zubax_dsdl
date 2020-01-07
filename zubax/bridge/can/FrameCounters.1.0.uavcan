@@ -1,6 +1,4 @@
-#
 # CAN frame statistics.
-#
 
 uint48 in_success       # Valid CAN frames received from the bus (data or RTR).
 uint48 in_overrun       # Received frames that had to be dropped due to buffer overruns.

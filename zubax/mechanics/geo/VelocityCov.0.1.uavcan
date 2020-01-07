@@ -1,0 +1,11 @@
+# Linear velocity in the North-East-Down coordinate frame with covariance. Positive Z indicates downward motion.
+# Unknown components shall be NaN and their variance shall be a positive infinity.
+
+uavcan.si.unit.velocity.Vector3.1.0 north_east_down
+
+void4
+
+float16[<=9] covariance
+# Element ordering: northward, eastward, downward.
+
+@assert _offset_ % 8 == {0}

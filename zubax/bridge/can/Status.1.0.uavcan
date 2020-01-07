@@ -1,56 +1,54 @@
-#
 # Generic CAN adapter status message.
 # This is a top-level type in this namespace.
 #
 # This message is to be published periodically; the recommended frequency is 1 Hz or higher.
 # It is recommended to additionally publish this message out-of-band (perhaps at a lower priority value)
 # immediately after each reconfiguration.
-#
 
-# This is intended for adapter diagnostics. If the time is not synchronized, this value should be UNKNOWN (zero).
 uavcan.time.SynchronizedTimestamp.1.0 timestamp
+# This is intended for adapter diagnostics. If the time is not synchronized, this value should be UNKNOWN (zero).
 
-# The error state per the CAN specification obtained directly from the CAN controller hardware.
 FaultConfinementStatus.1.0 fault_confinement_status
+# The error state per the CAN specification obtained directly from the CAN controller hardware.
 
-# The counters shall be reset back to zero when the channel is opened.
 FrameCounters.1.0    frame_counters
 BusErrorCounters.1.0 bus_error_counters
+# The counters shall be reset back to zero when the channel is opened.
 
 @assert _offset_ % 8 == {0}
 
+uint32 reconfiguration_count
 # Incremented by one whenever the adapter receives a new configuration message where the commanded
 # configuration is different from the current configuration. Never reset while the adapter is running.
-uint32 reconfiguration_count
 
 void1
+uint7 bus_load_percent
+void1
+uint7 bus_load_contributed_percent
 # Approximate mean CAN bus utilization, in percent, over the last second. The accuracy is implementation-defined.
 # The estimate shall reflect the true state of the medium regardless of the acceptance filter configuration.
 # The first value is the total bus utilization.
 # The second value is the contribution to the total utilization by the bridge itself.
 # The following invariants apply: 100% >= total >= tx >= 0%. Values above 100% shall be attributed to an
 # estimation error and to be treated as 100%.
-uint7 bus_load_percent
-void1
-uint7 bus_load_contributed_percent
 
 @assert _offset_ % 8 == {0}
 
+PhysicalConfig.1.0 physical_config
 # Physical layer configuration parameters.
 # These are not the commanded values but the actual properties configured by the adapter.
 # For example, if the requested sample point location is 80% but the adapter could only configure 83%,
 # the latter value will be reported here.
-PhysicalConfig.1.0 physical_config
 
 @assert _offset_ % 8 == {0}
 
 void16
 
+ConfigResult.1.0 config_result
 # The result of the last reconfiguration.
 # Normally, if the channel is open, the result should be SUCCESS, since the channel should be closed
 # on bad configuration.
 # If the channel has been commanded to be closed, the result would be SUCCESS, since closing can't fail.
-ConfigResult.1.0 config_result
 
 @assert _offset_ % 8 == {0}
 @assert _offset_.count == 1     # All preceding fields are fixed-size.

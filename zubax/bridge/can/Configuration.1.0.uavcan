@@ -1,4 +1,3 @@
-#
 # Generic CAN adapter configuration message.
 # This is a top-level type in this namespace.
 #
@@ -59,22 +58,21 @@
 #     Every expired and unsupported frame is also republished here with timestamp value being UNKNOWN (zero).
 #
 #   - Bridge status message of type Status defined in this namespace. Read its description for more info.
-#
 
-# Physical layer configuration parameters.
 PhysicalConfig.1.0 physical_config
+# Physical layer configuration parameters.
 
 @assert _offset_ % 8 == {0}
 
 void58
 
+uint6 MAX_FILTERS = 32
+FilterConfig.1.0[<=MAX_FILTERS] filter_config
 # Empty array instructs the adapter to reject all frames.
 # This field should be ignored if the physical layer configuration commands the channel to be closed.
 # Silent mode with an empty filter configuration should not be used; otherwise, the behavior is implementation-defined.
 # If the underlying hardware does not implement the required number of filters, the missing filters (or all of them)
 # shall be implemented by the adapter's software/firmware.
-uint6 MAX_FILTERS = 32
-FilterConfig.1.0[<=MAX_FILTERS] filter_config
 
 @assert _offset_ % 8 == {0}
 @assert _offset_.max / 8 <= 313

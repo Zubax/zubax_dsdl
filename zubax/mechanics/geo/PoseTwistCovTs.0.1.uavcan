@@ -1,0 +1,7 @@
+# Timestamped pose-twist tuple.
+
+PoseTwistCov.0.1 pose_twist
+
+uavcan.time.SynchronizedTimestamp.1.0 timestamp
+
+@assert _offset_ % 8 == {0}

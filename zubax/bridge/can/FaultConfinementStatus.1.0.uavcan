@@ -1,26 +1,24 @@
-#
 # Controller fault confinement status per the CAN (FD) specification.
 # The values are obtained directly from the CAN controller hardware.
-#
 
-# This value is redundant because it can be deduced from the error counters;
-# however, it is provided nevertheless to relieve the subscribers from implementing CAN-specific
-# error handling logic.
-uint2 state
 uint2 STATE_ERROR_ACTIVE  = 0   # The normal state.
 uint2 STATE_ERROR_PASSIVE = 2   # Limited transmission capabilities.
 uint2 STATE_BUS_OFF       = 3   # Can't transmit at all.
+uint2 state
+# This value is redundant because it can be deduced from the error counters;
+# however, it is provided nevertheless to relieve the subscribers from implementing CAN-specific
+# error handling logic.
 
 void5
 
-# Transmit/receive error counters for nominal bit rate (classic CAN, non-data segments of CAN FD).
 uint9 tec
 uint8 rec
+# Transmit/receive error counters for nominal bit rate (classic CAN, non-data segments of CAN FD).
 
 void7
 
-# Transmit/receive error counters for the data segment of CAN FD frames where the BRS flag is active.
 uint9 tec_fd
 uint8 rec_fd
+# Transmit/receive error counters for the data segment of CAN FD frames where the BRS flag is active.
 
 @assert _offset_ % 8 == {0}

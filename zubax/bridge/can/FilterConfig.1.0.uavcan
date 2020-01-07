@@ -1,8 +1,6 @@
-#
 # CAN acceptance filter configuration.
 # In order to accept both extended and base frames, use two filters.
 # The interface does not differentiate between RTR and data frames - both accepted if the ID matches.
-#
 
 @union
 

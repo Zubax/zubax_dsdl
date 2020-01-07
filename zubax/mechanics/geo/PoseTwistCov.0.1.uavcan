@@ -1,0 +1,7 @@
+# Pose and motion of a rigid body near the surface of a planet.
+# The linear and angular velocities are specified in the body frame.
+
+PoseCov.0.1                  pose
+zubax.mechanics.TwistCov.0.1 twist
+
+@assert _offset_ % 8 == {0}

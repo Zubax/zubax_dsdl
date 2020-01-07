@@ -1,0 +1,11 @@
+# Geodetic position with covariance.
+
+Point.0.1 point
+
+void4
+
+float16[<=9] covariance
+# The position covariance is defined relative to a tangential plane through the specified latitude/longitude.
+# Element ordering: latitude, longitude, altitude. It is chosen to match the axis ordering of the NED frame.
+
+@assert _offset_ % 8 == {0}

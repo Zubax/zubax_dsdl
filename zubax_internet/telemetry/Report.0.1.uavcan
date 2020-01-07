@@ -1,4 +1,3 @@
-#
 # Zubax Robotics global telemetry datagram format for use over UDP/IP.
 #
 # This message is a container for application-level data that is delivered over the public Internet to
@@ -6,64 +5,63 @@
 #
 # Normally, the entire message should be encrypted with RSA-1776; the server has the private key.
 # The message may be unencrypted if a secure transport is used (DTLS).
-#
 
-# The default host is "samosbor.zubax.com".
-# The default destination port depends on the transport.
 uint16 SERVER_PORT_UDP  = 0x525A    # Non-secure transport. RSA encryption should be used.
 uint16 SERVER_PORT_DTLS = 0x5272    # Secure DTLS transport. RSA encryption is optional.
+# The default host is "samosbor.zubax.com".
+# The default destination port depends on the transport.
 
-# The magic is also used for protocol version detection.
-uint32 protocol_magic
 uint32 CORRECT_PROTOCOL_MAGIC = 0x_11_78_62_5A
+uint32 protocol_magic
+# The magic is also used for protocol version detection.
 
+uint8[28] device_type_name
 # Same as uavcan.node.GetInfo; e.g., "com.zubax.babel_fd"; trailing unused characters shall be zeros.
 # UAVCAN permits longer names but we don't need that.
-uint8[28] device_type_name
 
-# Like uavcan.node.GetInfo.
 uint8[16] device_unique_id
-
-@assert _offset_ % 64 == {0}
 # Like uavcan.node.GetInfo.
-uint64 device_software_vcs_revision_id
 
 @assert _offset_ % 64 == {0}
+uint64 device_software_vcs_revision_id
+# Like uavcan.node.GetInfo.
+
+@assert _offset_ % 64 == {0}
+uint64 run_id
 # A new value is generated when the device is started, then used until the device is powered off or reset.
 # New values shall be unlikely to have occurred earlier. A robust way of ensuring this is to
 # store a counter in a non-volatile memory, incrementing it each time the device is booted.
 # If the device lacks a robust non-volatile storage or if that approach is otherwise undesirable,
 # this could be replaced by a random number generated anew every boot.
 # The purpose of this field is to let the server detect when the sequence number is expected to be reset.
-uint64 run_id
 
 @assert _offset_ % 64 == {0}
+uint64 datagram_sequence_number
 # Whenever a new datagram is sent, this value shall be incremented by one.
 # When the device is started, this value shall be zero-initialized.
-uint64 datagram_sequence_number
 
-# Like uavcan.node.GetInfo.
 uavcan.node.Version.1.0 device_hardware_version
 uavcan.node.Version.1.0 device_software_version
+# Like uavcan.node.GetInfo.
 
 void16
 
-# A device-specific value describing how to interpret the payload.
 uint8 payload_type_id
+# A device-specific value describing how to interpret the payload.
 
-# Application-level encoded payload. The implicit array length field is 8 bits long.
 uint8 PAYLOAD_CAPACITY = 131
 uint8[<=PAYLOAD_CAPACITY] payload
+# Application-level encoded payload. The implicit array length field is 8 bits long.
 
-# Ensure the payload is aligned at least at 16 bytes. This guarantee simplifies manual serialization.
 @assert _offset_.min % 128 == 0
+# Ensure the payload is aligned at least at 16 bytes. This guarantee simplifies manual serialization.
 
-# The size of the header including the implicit payload length field.
 @assert _offset_.min / 8 == 80
+# The size of the header including the implicit payload length field.
 
+@assert _offset_.max / 8 == 211
 # One UAVCAN-tunneled UDP frame can carry up to 261 bytes of payload.
 # An RSA-1776 encrypted plaintext can be up to 211 bytes large (https://crypto.stackexchange.com/questions/39443).
 # Telemetry reports may be RSA-encrypted; the server is assumed to hold the private key.
 # The server shall detect automatically whether a message is RSA-encrypted.
 # Bidirectional exchanges should use DTLS.
-@assert _offset_.max / 8 == 211

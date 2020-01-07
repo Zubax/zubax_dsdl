@@ -40,8 +40,8 @@ for t in output:
         abort = partial(die_at, t, index)
 
         # Check header comment
-        if index == 0 and line != '#':
-            abort('Every data type definition shall have a header comment surrounded with "#\\n"')
+        if index == 0 and not line.startswith('# '):
+            abort('Every data type definition shall have a header comment')
 
         # Check trailing comment placement
         # TODO: this test breaks on string literals containing "#"

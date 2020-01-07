@@ -1,20 +1,18 @@
-#
 # The outcome of the last configuration change.
-#
 
 uint8 value
 
-# The new configuration has been applied successfully.
 uint8 SUCCESS = 0
+# The new configuration has been applied successfully.
 
+uint8 UNSUPPORTED_BIT_RATE = 1
 # The specified bit rate value cannot be configured or is invalid (e.g., zero).
 # Observe that there is no counterpart for the bit sample point location because the adapter shall silently
 # round the configured value to the nearest reachable value; i.e., can't fail.
-uint8 UNSUPPORTED_BIT_RATE = 1
 
+uint8 INITIALIZATION_TIMED_OUT = 2
 # The initialization timeout is implementation-defined.
 # Per the CAN bus specification, a failed initialization may indicate that the bit rate is too low.
-uint8 INITIALIZATION_TIMED_OUT = 2
 
-# Any other error not listed here.
 uint8 OTHER_ERROR = 255
+# Any other error not listed here.

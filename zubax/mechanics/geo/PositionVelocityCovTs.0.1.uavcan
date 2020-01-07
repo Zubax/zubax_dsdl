@@ -1,0 +1,7 @@
+# Geodetic position and NED-velocity of a point with covariance and timestamp.
+
+PositionVelocityCov.0.1 position_velocity
+
+uavcan.time.SynchronizedTimestamp.1.0 timestamp
+
+@assert _offset_ % 8 == {0}

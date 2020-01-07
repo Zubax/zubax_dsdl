@@ -1,4 +1,3 @@
-#
 # 1. OVERVIEW
 #
 # This data type definition follows the layout of the "Plain RTP" datagram header as described in the
@@ -98,7 +97,6 @@
 # the HTTP request message shall carry an additional header:
 #
 #   X-Connection: stateless,mtu=297
-#
 
 uint2 version               # Shall be equal VERSION_VALUE. Drop the datagram if not.
 uint2 VERSION_VALUE = 2
@@ -109,40 +107,40 @@ void4   # CC - CSRC count; not used in NTRIP.
 @assert _offset_ / 8 == {1}
 void1   # M - marker; not used in NTRIP.
 
-# Specifies how the packet shall be interpreted. See the constants.
 uint7 payload_type
+# Specifies how the packet shall be interpreted. See the constants.
 
-# Sent from the caster to the client to stream RTCM data which is contained in the payload.
 uint7 PAYLOAD_TYPE_STREAM = 96
+# Sent from the caster to the client to stream RTCM data which is contained in the payload.
 
+uint7 PAYLOAD_TYPE_HTTP = 97
 # Sent from the client to the caster with the HTTP request contained in the payload.
 # Sent from the caster to the client with the HTTP response contained in the payload.
-uint7 PAYLOAD_TYPE_HTTP = 97
 
 @assert _offset_ / 8 == {2}
 
+uint16 sequence_number
 # Defined per mountpoint; i.e., every client listening on the same mountpoint will receive data
 # in lockstep with each other, with the same sequence number uniquely identifying a given fragment
 # within its overflow period. This is necessary to ensure that a client being connected to the caster
 # over multiple redundant links can reassemble the stream from all available redundant communication
 # channels simultaneously.
-uint16 sequence_number
 
-# Defined per mountpoint, same as the sequence number field.
 uint32 timestamp    # 125 microseconds per LSB (tick rate 8 kHz).
+# Defined per mountpoint, same as the sequence number field.
 
+uint32 synchronization_source_id
 # Also known as "SSRC". Can be arbitrary in request messages.
 # In streaming messages, the value shall match that of the last valid request message.
-uint32 synchronization_source_id
 
 uint8 HEADER_SIZE = 12
 @assert _offset_ / 8 == {HEADER_SIZE}   # The payload is to immediately follow the header.
 
-# Constants from the NTRIP v2 specification.
 uint8 MAX_KEEP_ALIVE_PERIOD         = 20   # [second]
 uint8 CONNECTION_AUTO_CLOSE_TIMEOUT = 60   # [second]
+# Constants from the NTRIP v2 specification.
 
-# Payload capacity limits that shall be followed in order to ensure compatibility with UDP-over-UAVCAN.
-# Datagrams containing larger payloads may be dropped by UAVCAN modems.
 uint16 CLIENT_TO_CASTER_PAYLOAD_CAPACITY = 261 - HEADER_SIZE    # [bytes]
 uint16 CASTER_TO_CLIENT_PAYLOAD_CAPACITY = 309 - HEADER_SIZE    # [bytes]
+# Payload capacity limits that shall be followed in order to ensure compatibility with UDP-over-UAVCAN.
+# Datagrams containing larger payloads may be dropped by UAVCAN modems.
