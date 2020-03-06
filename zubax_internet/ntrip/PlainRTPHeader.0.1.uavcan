@@ -140,7 +140,7 @@ uint8 MAX_KEEP_ALIVE_PERIOD         = 20   # [second]
 uint8 CONNECTION_AUTO_CLOSE_TIMEOUT = 60   # [second]
 # Constants from the NTRIP v2 specification.
 
-uint16 CLIENT_TO_CASTER_PAYLOAD_CAPACITY = 261 - HEADER_SIZE    # [bytes]
+uint16 CLIENT_TO_CASTER_PAYLOAD_CAPACITY = 260 - HEADER_SIZE    # [bytes]
 uint16 CASTER_TO_CLIENT_PAYLOAD_CAPACITY = 309 - HEADER_SIZE    # [bytes]
 # Payload capacity limits that shall be followed in order to ensure compatibility with UDP-over-UAVCAN.
 # Datagrams containing larger payloads may be dropped by UAVCAN modems.

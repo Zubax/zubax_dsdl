@@ -60,7 +60,7 @@ uint8[<=PAYLOAD_CAPACITY] payload
 # The size of the header including the implicit payload length field.
 
 @assert _offset_.max / 8 == 211
-# One UAVCAN-tunneled UDP frame can carry up to 261 bytes of payload.
+# One UAVCAN-tunneled UDP frame can carry up to 260 bytes of payload.
 # An RSA-1776 encrypted plaintext can be up to 211 bytes large (https://crypto.stackexchange.com/questions/39443).
 # Telemetry reports may be RSA-encrypted; the server is assumed to hold the private key.
 # The server shall detect automatically whether a message is RSA-encrypted.
