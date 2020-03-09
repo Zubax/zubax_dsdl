@@ -16,15 +16,15 @@ Inputs.0.1 used_inputs
 DilutionOfPrecision.0.1 dop
 # Influence of the current geometry and visibility of the constellation on the accuracy of the solution.
 
+uint2 fix_status                # Status of the solution.
 uint2 FIX_STATUS_INVALID = 0    # The time, position, and velocity estimates are invalid.
 uint2 FIX_STATUS_TIME    = 1    # The time estimate is valid, the rest are invalid.
 uint2 FIX_STATUS_2D      = 2    # The time, latitude, longitude, and NE-plane velocity estimates are valid.
 uint2 FIX_STATUS_3D      = 3    # All estimates are valid.
-uint2 fix_status
-# Status of the solution.
+void6
 
-void21
 bool rtk_fix    # True if the current mode is RTK and an RTK fix has been established.
 # Extended operating mode flags.
+void63
 
-void64
+@assert _offset_ % 8 == {0}

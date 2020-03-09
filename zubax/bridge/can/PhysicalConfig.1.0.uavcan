@@ -2,24 +2,19 @@
 # This type is used both in the configuration message and in the status message; that is, it is used
 # both to command a new configuration and to report the current configuration.
 
-void6
-
 uint2 mode
 # The CAN controller mode, commanded or current.
-
 uint2 MODE_IDLE = 0
 # Disconnect from the bus and put the CAN controller into the sleep mode. No frame forwarding will take place.
 # The timing configs shall be zero/ignored.
-
 uint2 MODE_SILENT = 1
 # In the silent mode the CAN controller will never modulate dominant levels.
 # Data transmission is impossible in the silent mode;
 # frames submitted for transmission shall be assumed to have timed out on arrival.
-
 # The mode value 2 is reserved for future use. If such value is encountered, the behavior is implementation-defined.
-
 uint2 MODE_NORMAL = 3
 # In the normal mode, the bridge will perform regular bidirectional forwarding.
+void6
 
 TimingConfig.1.0 timing
 # The timing configuration used for the nominal segment (classic CAN and non-data segments of CAN FD).

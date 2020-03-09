@@ -1,7 +1,7 @@
 # 11-bit acceptance filter configuration.
 
-void4
 uint11 identifier
-
 void5
+
 uint11 mask
+void5

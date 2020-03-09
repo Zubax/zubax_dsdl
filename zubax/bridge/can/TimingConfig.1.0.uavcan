@@ -3,15 +3,13 @@
 uint24 bit_rate
 # In bits per second.
 
-void1
-
 uint7 sample_point_location_percent
 # Desired location of the bit sample point, in percent of the bit period.
 # The bridge should strive to configure the closest reachable value. In the extreme case, that would be only
 # one pre-programmed value, and this setting would be ignored.
 # If the value exceeds 100%, the behavior is implementation-defined.
-
 uint7 SAMPLE_POINT_LOCATION_NOMINAL_PERCENT_UAVCAN = 85
 # The recommended sample point location for the nominal bit rate per the UAVCAN specification.
+void1
 
-@assert _offset_ % 8 == {0}
+@assert _offset_ == {32}

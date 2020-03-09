@@ -98,24 +98,24 @@
 #
 #   X-Connection: stateless,mtu=297
 
+void4   # CC - CSRC count; not used in NTRIP.
+void1   # X  - extension; not used in NTRIP.
+void1   # P  - padding; not used in NTRIP.
+
 uint2 version               # Shall be equal VERSION_VALUE. Drop the datagram if not.
 uint2 VERSION_VALUE = 2
 
-void1   # P  - padding; not used in NTRIP.
-void1   # X  - extension; not used in NTRIP.
-void4   # CC - CSRC count; not used in NTRIP.
 @assert _offset_ / 8 == {1}
-void1   # M - marker; not used in NTRIP.
 
 uint7 payload_type
 # Specifies how the packet shall be interpreted. See the constants.
-
 uint7 PAYLOAD_TYPE_STREAM = 96
 # Sent from the caster to the client to stream RTCM data which is contained in the payload.
-
 uint7 PAYLOAD_TYPE_HTTP = 97
 # Sent from the client to the caster with the HTTP request contained in the payload.
 # Sent from the caster to the client with the HTTP response contained in the payload.
+
+void1   # M - marker; not used in NTRIP.
 
 @assert _offset_ / 8 == {2}
 

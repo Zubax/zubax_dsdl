@@ -2,8 +2,6 @@
 
 Pose.0.1 pose
 
-void2
-
 float16[<=36] covariance
 # The position covariance is defined relative to a tangential plane through the specified latitude/longitude.
 #

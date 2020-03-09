@@ -21,10 +21,10 @@ uint32 reconfiguration_count
 # Incremented by one whenever the adapter receives a new configuration message where the commanded
 # configuration is different from the current configuration. Never reset while the adapter is running.
 
-void1
 uint7 bus_load_percent
 void1
 uint7 bus_load_contributed_percent
+void1
 # Approximate mean CAN bus utilization, in percent, over the last second. The accuracy is implementation-defined.
 # The estimate shall reflect the true state of the medium regardless of the acceptance filter configuration.
 # The first value is the total bus utilization.

@@ -64,7 +64,7 @@ PhysicalConfig.1.0 physical_config
 
 @assert _offset_ % 8 == {0}
 
-void58
+void56
 
 uint6 MAX_FILTERS = 32
 FilterConfig.1.0[<=MAX_FILTERS] filter_config

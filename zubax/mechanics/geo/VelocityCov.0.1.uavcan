@@ -3,8 +3,6 @@
 
 uavcan.si.unit.velocity.Vector3.1.0 north_east_down
 
-void4
-
 float16[<=9] covariance
 # Element ordering: northward, eastward, downward.
 

@@ -2,8 +2,6 @@
 
 Twist.0.1 twist
 
-void2
-
 float16[<=36] covariance
 #                                velocity along axis              rotation about axis
 #    Covariance matrix   |     X          Y          Z          X          Y          Z
