@@ -33,17 +33,11 @@ for ns in ['zubax', 'zubax_internet']:
     )
 
 for t in output:
-    print(t)
     text = open(t.source_file_path).read()
     for index, line in enumerate(text.split('\n')):
         line = line.strip('\r\n')
         abort = partial(die_at, t, index)
 
-        # Check header comment
-        if index == 0 and not line.startswith('# '):
-            abort('Every data type definition shall have a header comment')
-
-        # Check trailing comment placement
         # TODO: this test breaks on string literals containing "#"
         if not line.startswith('#') and '#' in line and '  #' not in line:
             abort('Trailing line comments shall be separated from the preceding text with at least two spaces')
@@ -54,14 +48,25 @@ for t in output:
         if line.endswith(' '):
             abort('Trailing spaces are not permitted')
 
-        # Check line length limit
         if len(line) > MAX_LINE_LENGTH:
             abort('Line is too long:', len(line), '>', MAX_LINE_LENGTH, 'chars')
 
-        # Make sure we're not using any weird characters such as tabs or non-ASCII-printable
         for char_index, char in enumerate(line):
             if char not in ALLOWED_CHARACTERS:
                 abort('Disallowed character', repr(char), 'code', ord(char), 'at column', char_index + 1)
 
     if not text.endswith('\n') or text.endswith('\n' * 2):
         abort('A file shall contain exactly one blank line at the end')
+
+longest_name = max(map(lambda x: len(str(x)), output))
+print('Full data type name'.ljust(longest_name), 'Fixed port-ID', 'Bytes'.ljust(10), sep='\t')
+for t in output:
+    if isinstance(t, pydsdl.ServiceType):
+        n_bytes = ' '.join([f'{max(x.bit_length_set) // 8: 4}' for x in (t.request_type, t.response_type)])
+    else:
+        n_bytes = str(max(t.bit_length_set) // 8)
+
+    print(str(t).ljust(longest_name),
+          str(t.fixed_port_id if t.has_fixed_port_id else '').rjust(13),
+          n_bytes.rjust(10) + ' ',
+          sep='\t')
