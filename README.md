@@ -2,4 +2,4 @@
 
 Public unregulated vendor-specific UAVCAN DSDL definitions.
 
-The background is explained at [new.uavcan.org](https://new.uavcan.org).
+The background is explained at [uavcan.org](https://uavcan.org).
