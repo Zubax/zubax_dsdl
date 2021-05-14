@@ -62,8 +62,6 @@
 PhysicalConfig.1.0 physical_config
 # Physical layer configuration parameters.
 
-@assert _offset_ % 8 == {0}
-
 void56
 
 uint6 MAX_FILTERS = 32
@@ -74,5 +72,4 @@ FilterConfig.1.0[<=MAX_FILTERS] filter_config
 # If the underlying hardware does not implement the required number of filters, the missing filters (or all of them)
 # shall be implemented by the adapter's software/firmware.
 
-@assert _offset_ % 8 == {0}
-@assert _offset_.max / 8 <= 313
+@extent 600 * 8

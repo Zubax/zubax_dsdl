@@ -26,4 +26,4 @@ TimingConfig.1.0 timing_fd
 # for all frames (the BRS flag will never be activated).
 # Adapters that do not support CAN FD shall set this field to zero/ignore.
 
-@assert _offset_ % 8 == {0}
+@extent 256 * 8

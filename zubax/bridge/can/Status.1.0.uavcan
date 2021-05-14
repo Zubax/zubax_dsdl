@@ -50,6 +50,4 @@ ConfigResult.1.0 config_result
 # on bad configuration.
 # If the channel has been commanded to be closed, the result would be SUCCESS, since closing can't fail.
 
-@assert _offset_ % 8 == {0}
-@assert _offset_.count == 1     # All preceding fields are fixed-size.
-@assert _offset_.max / 8 <= 124
+@extent 512 * 8

@@ -1,6 +1,0 @@
-# Geodetic position and NED-velocity of a point with covariance.
-
-PointCov.0.1    position
-VelocityCov.0.1 velocity
-
-@assert _offset_ % 8 == {0}

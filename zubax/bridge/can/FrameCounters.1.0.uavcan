@@ -9,3 +9,5 @@ uint48 out_expired      # CAN frames that could not be transmitted before the de
 uint48 out_overrun      # Outgoing frames that had to be dropped due to buffer overruns.
 uint48 out_unsupported  # Frames that could not be transmitted because they are not supported by the hardware.
 void48
+
+@sealed

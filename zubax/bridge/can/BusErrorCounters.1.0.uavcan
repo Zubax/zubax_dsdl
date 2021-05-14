@@ -17,3 +17,5 @@ uint48 crc
 # The CRC value of a received frame did not match.
 
 void48
+
+@sealed

@@ -16,3 +16,5 @@ uint8 INITIALIZATION_TIMED_OUT = 2
 
 uint8 OTHER_ERROR = 255
 # Any other error not listed here.
+
+@sealed

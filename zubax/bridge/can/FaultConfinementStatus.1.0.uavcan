@@ -21,3 +21,5 @@ uint8 rec_fd
 # Transmit/receive error counters for the data segment of CAN FD frames where the BRS flag is active.
 
 @assert _offset_ / 8 == {7}
+
+@sealed

@@ -44,14 +44,14 @@ uavcan.node.Version.1.0 device_hardware_version
 uavcan.node.Version.1.0 device_software_version
 # Like uavcan.node.GetInfo.
 
-void16
+void8
 
-uint8 payload_type_id
+uint8 payload_kind
 # A device-specific value describing how to interpret the payload.
 
-uint8 PAYLOAD_CAPACITY = 131
+uint16 PAYLOAD_CAPACITY = 508 - _offset_.max / 8 - 2
 uint8[<=PAYLOAD_CAPACITY] payload
-# Application-level encoded payload. The implicit array length field is 8 bits long.
+# Application-level encoded payload.
 
 @assert _offset_.min % 128 == 0
 # Ensure the payload is aligned at least at 16 bytes. This guarantee simplifies manual serialization.
@@ -59,9 +59,10 @@ uint8[<=PAYLOAD_CAPACITY] payload
 @assert _offset_.min / 8 == 80
 # The size of the header including the implicit payload length field.
 
-@assert _offset_.max / 8 == 211
-# One UAVCAN-tunneled UDP frame can carry up to 260 bytes of payload.
+@assert _offset_.max / 8 == 508
 # An RSA-1776 encrypted plaintext can be up to 211 bytes large (https://crypto.stackexchange.com/questions/39443).
 # Telemetry reports may be RSA-encrypted; the server is assumed to hold the private key.
 # The server shall detect automatically whether a message is RSA-encrypted.
 # Bidirectional exchanges should use DTLS.
+
+@sealed

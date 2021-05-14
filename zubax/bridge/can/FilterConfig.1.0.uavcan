@@ -8,3 +8,5 @@ BaseFilterConfig.1.0     base
 ExtendedFilterConfig.1.0 extended
 
 @assert _offset_ == {8 + 16 * 2, 8 + 32 * 2}
+
+@sealed

@@ -13,3 +13,5 @@ uint7 SAMPLE_POINT_LOCATION_NOMINAL_PERCENT_UAVCAN = 85
 void1
 
 @assert _offset_ == {32}
+
+@sealed
