@@ -1,2 +1,7 @@
+# The task-ID are defined in zubax.telega.TaskSpecificStatus.
+# TODO: The failed task exit codes are to be populated later.
 
-@extent 128 * 8
+uint8 failed_task_id
+uint8 failed_task_exit_code
+
+@extent 64 * 8

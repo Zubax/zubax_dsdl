@@ -1,2 +1,20 @@
+# Run task technical information.
+# Physical values are published over separate subjects.
 
-@extent 128 * 8
+uint32 stall_count
+# How many times the motor has been stalled since the run task was entered.
+# This value is reset to zero whenever the run task is exited (e.g., motor stopped).
+
+float16 demand_factor
+# Unitless value in [-1, +1] that indicates the current power relative to the controller's capabilities.
+# Negative values indicate regeneration.
+
+Setpoint.0.1 setpoint
+# The currently applied setpoint & the control mode.
+
+bool spinup_in_progress     # Normal operation is not yet reached.
+bool rotation_reversed      # Motor phases A and C are swapped per configuration.
+bool saturation             # The control loop is saturated.
+void5
+
+@extent 64 * 8

@@ -1,0 +1,6 @@
+# Empty struct placeholder that may be populated with data in a later revision.
+
+uint7 progress_pct
+# The progress percentage value indicates how much of the task is completed ranging from 0 to 100 inclusive.
+
+@extent 64 * 8

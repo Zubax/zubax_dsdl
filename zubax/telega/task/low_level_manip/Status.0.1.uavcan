@@ -1,0 +1,7 @@
+@union
+
+uavcan.primitive.Empty.1.0 calibration
+uavcan.primitive.Empty.1.0 phase_manipulation
+uavcan.primitive.Empty.1.0 scalar_control
+
+@extent 64 * 8

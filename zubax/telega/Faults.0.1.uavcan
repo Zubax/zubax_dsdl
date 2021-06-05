@@ -7,9 +7,9 @@ LimitAlert.0.1 temperature_cpu
 LimitAlert.0.1 temperature_vsi
 LimitAlert.0.1 temperature_motor
 
-bool hardware_lvps_malfunction
-bool hardware_fault
-bool hardware_overload
+EdgeCounter.0.1 hardware_lvps_malfunction
+EdgeCounter.0.1 hardware_fault
+EdgeCounter.0.1 hardware_overload
 
 bool phase_current_measurement_malfunction
 
