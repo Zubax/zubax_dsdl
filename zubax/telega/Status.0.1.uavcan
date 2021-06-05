@@ -1,9 +1,9 @@
 # General status message. This is a top-level data type for this namespace.
 # Temperatures, DC power, and other physical states are published via dedicated topics with timestamps.
 
-Faults.0.1              faults
-IfaceState.0.1          iface_state
-PowerStageState.0.1     power_stage_state
-TaskSpecificStatus.0.1  task_specific_status
+Faults.0.1                      faults
+IfaceState.0.1                  iface_state
+PowerStageState.0.1             power_stage_state
+zubax.telega.task.Status.0.1    task_specific_status
 
 @extent 512 * 8

@@ -1,7 +1,7 @@
-# A binary state and the number of times it was changed.
+# A binary state and the number of times it was set.
 # Notice that this value can also be read as an uint32, in which case it will be the total edge count.
 
-bool   state
-uint31 count
+bool             state
+truncated uint31 set_count
 
 @sealed
