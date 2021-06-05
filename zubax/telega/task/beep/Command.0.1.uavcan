@@ -1,0 +1,3 @@
+uavcan.si.unit.frequency.Scalar.1.0 frequency
+
+@extent 64 * 8
