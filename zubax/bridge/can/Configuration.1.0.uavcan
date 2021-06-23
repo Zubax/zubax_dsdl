@@ -29,7 +29,7 @@
 #
 # Subscriptions:
 #
-#   - Outgoing frame subject of type uavcan.metatransport.can.Frame.
+#   - Outgoing frame subject of type FrameTs.
 #     The adapter emits every frame received from this subject to the CAN bus.
 #     The timestamp of each frame contains the transmission deadline.
 #     If the timestamp is UNKNOWN (zero), the behavior is implementation-defined.
@@ -48,14 +48,14 @@
 #
 # Publications:
 #
-#   - Incoming frame and error subject of type uavcan.metatransport.can.Frame.
+#   - Incoming frame and error subject of type FrameTs.
 #     Every frame received from the bus is published via this subject; also, this subject carries
-#     bus error notifications in the form of a CAN frame message where the manifestation is set to "Error".
+#     bus error notifications in the form of a CAN frame message where the frame kind is set to "Error".
 #
-#   - Feedback frame subject of type uavcan.metatransport.can.Frame.
+#   - Feedback frame subject of type FrameTs.
 #     Every successfully transmitted frame is republished here with the timestamp value indicating
-#     the moment of time when the frame was delivered to the bus.
-#     Every expired and unsupported frame is also republished here with timestamp value being UNKNOWN (zero).
+#     the moment of time when the start bit of the frame was delivered to the bus.
+#     Every expired and unsupported frame is also republished here with the timestamp value set to UNKNOWN (zero).
 #
 #   - Bridge status message of type Status defined in this namespace. Read its description for more info.
 
