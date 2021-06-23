@@ -1,0 +1,7 @@
+# Timestamped CAN frame model.
+
+uavcan.time.SynchronizedTimestamp.1.0 timestamp
+
+uavcan.metatransport.can.Frame.0.2 frame
+
+@sealed
