@@ -1,0 +1,31 @@
+# Direct unsafe memory write/read service. It is intended for low-level maintenance and diagnostics only.
+# Incorrect usage of this service may lead to permanent failure of the system; it should not be used in production.
+#
+# This service is handled as follows:
+#
+#   1.  If the write data is not empty, said data will be written at the specified memory location
+#       using the specified type.
+#       The caller shall ensure that the operation is valid (address, alignment, etc.).
+#
+#   2.  If the read_count is positive, the specified number of elements as selected by the write request is read from
+#       the specified memory location.
+#       The caller is also responsible to ensure that the access is valid.
+#       If the count is larger than the read array capacity, the behavior is implementation-defined.
+#
+# The node may map some of the address ranges outside of its address space (e.g., non-volatile storage,
+# external devices, etc.). Such address mapping is implementation-defined.
+
+uint64 address
+
+uint9 read_count
+
+Data.0.1 write
+# Empty if no write is desired. The read element type is determined by the selected field even if empty.
+
+@sealed
+
+---
+
+Data.0.1 read
+
+@sealed
