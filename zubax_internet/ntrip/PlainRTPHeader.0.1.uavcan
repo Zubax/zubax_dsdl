@@ -96,7 +96,7 @@
 # In order to facilitate compatibility with existing and future versions of the protocol,
 # the HTTP request message shall carry an additional header:
 #
-#   X-Connection: stateless,mtu=297
+#   X-Connection: stateless,mtu=496
 
 void4   # CC - CSRC count; not used in NTRIP.
 void1   # X  - extension; not used in NTRIP.
