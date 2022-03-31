@@ -1,0 +1,4 @@
+uint9[6] raw
+bool[2]  vendor  # Vendor-specific extra bits. Set to zero by default if not used.
+@sealed
+@assert _offset_ / 8 == {7}  # Fits into a single-frame Classic CAN transfer.

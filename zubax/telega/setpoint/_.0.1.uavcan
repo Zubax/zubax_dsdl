@@ -12,4 +12,7 @@
 int14 RAW14_SCALE = 2 ** 13 - 1
 # If ratiometric control is used, then the range is [-8191, +8191]; -8192 is clipped to -8191.
 
+uint9 RAW9_SCALE = 2 ** 9 - 1
+# 9-bit setpoints are unipolar, so the range is [0, 511].
+
 @extent 0  # This type is not intended for runtime use.
