@@ -1,0 +1,5 @@
+float16[3] value
+# Absolute resolution exceeds 1e-3 above abs(x)=2
+# Absolute resolution exceeds 1 above abs(x)=4095
+@sealed
+@assert _offset_.max / 8 <= 7  # Shall fit into one Classic CAN frame.
