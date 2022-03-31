@@ -1,8 +1,0 @@
-# State of the power stage hardware.
-
-bool phase_current_agc_high_gain
-
-bool vsi_modulating
-bool vsi_enabled
-
-@extent 64 * 8

@@ -1,9 +1,0 @@
-# Whether a particular parameter is within or outside the operating limits.
-# The value is meant to be compared against zero.
-
-int2 value
-int2 UNDER   = -1   # Parameter is below the bottom limit, abnormal state.
-int2 NOMINAL =  0   # Parameter is within the limits, nominal operation.
-int2 OVER    = +1   # Parameter is above the top limit, abnormal state.
-
-@sealed

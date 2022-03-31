@@ -1,9 +1,0 @@
-# Communication interface state.
-
-bool can_data_link_up
-bool usb_data_link_up
-bool rcpwm_data_link_up
-
-bool usb_power_present
-
-@extent 64 * 8

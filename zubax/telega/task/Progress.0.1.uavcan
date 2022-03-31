@@ -1,6 +1,0 @@
-# Generic task completion percentage estimate.
-
-uint7 progress_pct
-# The progress percentage value indicates how much of the task is completed ranging from 0 to 100 inclusive.
-
-@extent 64 * 8
