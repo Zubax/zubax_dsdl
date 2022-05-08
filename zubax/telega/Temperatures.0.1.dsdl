@@ -1,0 +1,7 @@
+# Temperatures of key components of the drive.
+
+float16 motor           # [kelvin] NaN if thermistor is not configured
+float16 power_stage     # [kelvin]
+float16 cpu             # [kelvin]
+
+@extent 64 * 8
