@@ -1,0 +1,23 @@
+# Servo or stepper control message.
+# It is designed for use with Type-IV trajectory capable servocontrollers.
+# The units are linear (meter, newton) or rotational (radian, newton*meter) depending on the kind of servo.
+#
+# The message defines the target position and velocity along with the motion profile constraints:
+# the velocity limits (reverse and forward), the acceleration limits (deceleration and acceleration),
+# and the symmetric jerk limit.
+# The torque limit is configured in a similar fashion.
+# Limits that are set to zero are assumed to be undefined, in which case statically preconfigured defaults are used.
+#
+# Observe that this message is semantically compatible with just a scalar position value.
+# By virtue of the implicit zero extension rule, all motion profile values will be replaced with preconfigured defaults.
+
+zubax.physics.dynamics.DoF2nd.0.1 target
+# If the target velocity is non-zero, a new target should replace this one when it is reached to avoid oscillations.
+# The force/torque value sets the torque limit. For open-loop servos or steppers it sets the stator current.
+# The treatment of a non-positive force/torque limit is implementation-defined.
+
+float32[2] profile_velocity_reverse_forward     # {negative, positive}; set both to zero to select default.
+float32[2] profile_deceleration_acceleration    # {negative, positive}; set both to zero to select default.
+float32 profile_jerk                            # positive; set to zero to select default.
+
+@sealed
