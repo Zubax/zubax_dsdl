@@ -1,0 +1,5 @@
+# Linear [meter/second] or angular [radian/second] velocity with timestamp and covariance.
+uavcan.time.SynchronizedTimestamp.1.0 timestamp
+float32 value
+float16 error_variance  # [(meter/second)^2]
+@sealed
