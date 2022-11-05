@@ -1,0 +1,4 @@
+# Movement along an axis [meter] or rotation about an axis [radian].
+float32 position
+float32 velocity
+@sealed

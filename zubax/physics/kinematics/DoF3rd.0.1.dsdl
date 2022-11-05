@@ -1,0 +1,4 @@
+# Movement along an axis [meter] or rotation about an axis [radian].
+DoF2nd.0.1 base
+float32 acceleration
+@sealed

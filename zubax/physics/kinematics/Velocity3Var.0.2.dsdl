@@ -1,0 +1,4 @@
+# Linear [meter/second] or angular [radian/second] velocity with covariance.
+float32[3] value
+float16[6] covariance_urt  # [(meter/second)^2] or [(radian/second)^2] Upper-right triangle of the covariance matrix.
+@sealed
