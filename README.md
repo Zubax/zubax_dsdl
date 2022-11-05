@@ -1,5 +1,5 @@
-# Zubax UAVCAN DSDL
+# Zubax Cyphal DSDL
 
-Public unregulated vendor-specific UAVCAN DSDL definitions.
+Public unregulated vendor-specific Cyphal DSDL definitions.
 
-The background is explained at [uavcan.org](https://uavcan.org).
+The background is explained at [opencyphal.org](https://opencyphal.org).
