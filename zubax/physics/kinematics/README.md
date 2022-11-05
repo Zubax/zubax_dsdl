@@ -2,10 +2,10 @@
 
 This namespace contains data types that model basic [kinematic](https://en.wikipedia.org/wiki/Kinematics) states.
 
-The full kinematic state of a rigid body or fluid includes its position, velocity, acceleration, and orientation.
+The full kinematic state of a body includes its position, velocity, acceleration, and orientation.
 The data types contained here model either full or partial kinematic states (e.g., there are types for velocity only).
 
-Forces acting on the body or fluid are part of its *dynamic* state, so they are excluded from the model.
+Forces acting on the body are part of its *dynamic* state, so they are excluded from the model.
 
 The modeled kinematic state of a body in `cartesian` space includes its pose (position and orientation)
 and twist (here, twist is understood narrowly as the translational and rotational velocity of the body).
@@ -18,7 +18,7 @@ Cartesian approximation is infeasible.
 Other than using a different coordinate system to express position, the data types are equal to their Cartesian
 counterparts and are to some extent interchangeable thanks to the structural subtyping/aliasing features of DSDL.
 
-See UAVCAN Specification chapter "Application layer" for the applicable conventions.
+See Cyphal Specification chapter "Application layer" for the applicable conventions.
 Key excerpts:
 
 - For world fixed frames, the North-East-Down (NED) right-handed notation is preferred:
