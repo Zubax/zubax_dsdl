@@ -1,0 +1,36 @@
+# Drive command message.
+# This message can be used to command either VELOCITY or TORQUE/FORCE control modes, depending on its contents.
+#
+# The units are linear (meter/second, newton) or rotational (radian/second, newton*meter),
+# depending on how the drive is configured.
+
+float32 velocity
+# If finite, selects the VELOCITY control mode and sets the desired velocity.
+# If NaN or infinity, the TORQUE/FORCE control mode is selected instead using the next field as the setpoint.
+
+float32 force
+# The treatment of this field depends on the selected control mode.
+#
+# VELOCITY: A finite value sets the absolute motoring torque/force limit in quadrants Q1 and Q3;
+# the value shall be non-negative. NaN or infinity removes the limit.
+#
+# TORQUE/FORCE: The value shall be finite and it sets the four-quadrant torque/force.
+# Negative value during forward motion or positive value during reverse motion engage braking.
+
+float32 force_brake
+# The treatment of this field depends on the selected control mode.
+#
+# VELOCITY: A finite value sets the absolute braking torque/force limit in quadrants Q2 and Q4;
+# the sign is irrelevant. NaN or infinity removes the limit.
+#
+# TORQUE/FORCE: The field is ignored.
+
+float32[2] profile_deceleration_acceleration    # [meter/second^2] or [radian/second^2]
+# The treatment of this field depends on the selected control mode.
+#
+# VELOCITY: The field sets the negative and positive acceleration limit overrides.
+# Zero, NaN, or infinity in either element select the configured default value.
+#
+# TORQUE/FORCE: The field is ignored.
+
+@extent 8 * 32
