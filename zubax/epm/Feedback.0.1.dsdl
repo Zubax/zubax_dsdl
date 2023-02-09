@@ -1,0 +1,21 @@
+# Zubax EPM status feedback message.
+# This type is a structural subtype of uavcan.primitive.scalar.Bit.
+
+bool magnetized
+# True if the magnet is currently turned on.
+# The value is a best guess if remagnetization is currently in progress.
+
+int3 remagnetization_state
+# -1 -- the magnet is being demagnetized (turning off).
+#  0 -- the magnet is idle.
+# +1 -- the magnet is being magnetized (turning on).
+
+void4
+
+@assert _offset_ == {8}
+
+uint24[2] cycles_on_off
+# The number of magnetization and demagnetization cycles commenced, respectively, since the device was powered on.
+# The values are incremented immediately at the commencement of the cycle.
+
+@extent 63 * 8
