@@ -1,7 +1,7 @@
 # A generic source or sink of electric power (battery, turbogenerator, braking resistor, etc.).
 # Low-pass filtering should be applied to avoid aliasing effects (as is the case everywhere else).
 
-Power.0.1 power
+Power.1.0 power
 # Total instant load power.
 # Positive current flows into the source (power sinking).
 # Negative current flows from the source to the power supply network (power sourcing).

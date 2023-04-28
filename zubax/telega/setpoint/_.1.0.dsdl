@@ -4,7 +4,7 @@
 # Actuators are expected to subscribe using the largest array type defined here.
 # Publishers would choose the array type depending on the number of actuators in the group.
 # The actuators would be expecting the largest array type, where the missing elements will be zero-filled
-# automatically by the protocol stack thanks to the Implicit Zero Extension Rule (refer to the UAVCAN Specification).
+# automatically by the protocol stack thanks to the Implicit Zero Extension Rule (refer to the Cyphal Specification).
 #
 # It follows that a standalone actuator (that is not a member of any group) is just a special case of a group of 1,
 # where the setpoint type is a single scalar.

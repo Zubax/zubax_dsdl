@@ -1,4 +1,3 @@
-@deprecated  # use v1
 truncated float16[2] current
 truncated float16[2] voltage
 @sealed

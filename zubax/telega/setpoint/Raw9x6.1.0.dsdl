@@ -1,4 +1,3 @@
-@deprecated
 uint9[6] raw
 @sealed
 @assert _offset_.max / 8 <= 7  # Fits into a single-frame Classic CAN transfer.

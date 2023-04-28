@@ -1,3 +1,4 @@
+@deprecated
 uavcan.time.SynchronizedTimestamp.1.0 timestamp
-DoF2nd.0.1 value
+DoF2nd.1.0 value
 @sealed

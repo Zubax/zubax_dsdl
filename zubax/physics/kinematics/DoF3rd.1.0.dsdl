@@ -1,5 +1,4 @@
 # Movement along an axis [meter] or rotation about an axis [radian].
-@deprecated
-float32 position
-float32 velocity
+DoF2nd.1.0 base
+float32 acceleration
 @sealed

@@ -19,13 +19,13 @@ uint64 address
 
 uint9 read_count
 
-Data.0.1 write
+Data.1.0 write
 # Empty if no write is desired. The read element type is determined by the selected field even if empty.
 
 @sealed
 
 ---
 
-Data.0.1 read
+Data.1.0 read
 
 @sealed
