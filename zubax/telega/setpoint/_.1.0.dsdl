@@ -8,11 +8,20 @@
 #
 # It follows that a standalone actuator (that is not a member of any group) is just a special case of a group of 1,
 # where the setpoint type is a single scalar.
+#
+# Float-valued setpoint messages can be used for ratiometric control, in which case the range should be [-1,+1].
+
+@deprecated  # use zubax.primitive instead
 
 int14 RAW14_SCALE = 2 ** 13 - 1
 # If ratiometric control is used, then the range is [-8191, +8191]; -8192 is clipped to -8191.
 
 uint9 RAW9_SCALE = 2 ** 9 - 1
 # 9-bit setpoints are unipolar, so the range is [0, 511].
+
+float16 FLOAT16_EPSILON = 2 ** -11
+# The float16 epsilon defined for convenience. See https://en.wikipedia.org/wiki/Machine_epsilon.
+# Absolute resolution of float16 exceeds 1e-3 above abs(x)=2
+# Absolute resolution of float16 exceeds 1 above abs(x)=4095
 
 @extent 0  # This type is not intended for runtime use.

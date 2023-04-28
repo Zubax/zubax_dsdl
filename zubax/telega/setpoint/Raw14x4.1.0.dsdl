@@ -1,3 +1,0 @@
-int14[4] raw
-@sealed
-@assert _offset_ / 8 == {7}  # Fits into a single-frame Classic CAN transfer.

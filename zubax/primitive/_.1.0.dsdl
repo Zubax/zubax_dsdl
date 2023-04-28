@@ -1,0 +1,17 @@
+# This namespace contains a collection of primitive types and arrays thereof for various purposes that
+# do not require strong typing.
+# The physical meaning of the values contained in the messages is entirely defined by the application; however:
+#
+#   - If the values represent physical quantities, SI units should be used.
+#
+#   - If the values are of ratiometric nature, then float-typed values should be scaled as [-1,+1] or [0,+1].
+#     Integer-typed values should be scaled according to their maximum representable values;
+#     if symmetricity is desired, then the range should be [-max,+max] (e.g., [-127,+127] for int8).
+#
+# If these types are used to control groups of nodes, then the controlled nodes are expected to
+# subscribe using the largest array types defined here.
+# Publishers would choose the array type depending on the number of nodes commanded at once.
+# The nodes would be expecting the largest array type, where the missing elements will be zero-filled
+# automatically by the protocol stack thanks to the Implicit Zero Extension Rule (refer to the Cyphal Specification).
+
+@extent 0  # This type is not intended for runtime use.
