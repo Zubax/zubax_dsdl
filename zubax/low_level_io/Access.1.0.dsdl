@@ -15,8 +15,6 @@
 # The node may map some of the address ranges outside of its address space (e.g., non-volatile storage,
 # external devices, etc.). Such address mapping is implementation-defined.
 
-@deprecated  # use v1
-
 uint64 address
 
 uint9 read_count

@@ -1,4 +1,3 @@
-@deprecated  # use v1
 @union
 uavcan.primitive.array.Natural8.1.0  u8
 uavcan.primitive.array.Natural16.1.0 u16
