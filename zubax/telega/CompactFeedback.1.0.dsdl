@@ -1,7 +1,5 @@
 # This message is designed to provide low-resolution but high-frequency feedback from the ESC using very low bandwidth.
 
-@deprecated  # use v1
-
 float32 AMPERE_PER_LSB = 0.2
 float32 VOLT_PER_LSB   = 0.2
 
@@ -11,5 +9,5 @@ saturated  int12 phase_current_amplitude    # ditto
 saturated  int13 velocity                   # [-4096,+4095] radian/second (approx. [-39114,+39104] RPM)
 saturated  int8  demand_factor_pct          # [ -128, +127] percent
 
-@sealed
-@assert _offset_ == {56}  # Shall fit into one Classic CAN frame.
+@assert _offset_ == {56}    # 56 bits fit into one Classic CAN frame.
+@extent 63 * 8              # Provide room for possible future extensions.

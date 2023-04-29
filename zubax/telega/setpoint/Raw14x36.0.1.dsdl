@@ -1,3 +1,4 @@
+@deprecated  # use zubax.primitive instead
 int14[36] raw
 @sealed
 @assert _offset_ / 8 == {63}  # Fits into a single-frame CAN FD transfer.

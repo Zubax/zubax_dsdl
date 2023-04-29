@@ -1,5 +1,4 @@
 # Movement along an axis [meter],[newton] or rotation about an axis [radian],[newton*meter].
-@deprecated
 zubax.physics.kinematics.DoF3rd.1.0 kinematics
 float32 force  # [newton] or [newton*meter]
 @sealed

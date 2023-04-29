@@ -11,9 +11,7 @@
 # Observe that this message is semantically compatible with just a scalar position value.
 # By virtue of the implicit zero extension rule, all motion profile values will be replaced with preconfigured defaults.
 
-@deprecated  # use v1
-
-zubax.physics.dynamics.DoF2nd.0.1 target
+zubax.physics.dynamics.DoF2nd.1.0 target
 # If the target velocity is non-zero, a new target should replace this one when it is reached to avoid oscillations.
 # The force/torque value sets the torque limit. For open-loop servos or steppers it sets the stator current.
 # The treatment of a non-positive force/torque limit is implementation-defined.
@@ -22,4 +20,4 @@ float32[2] profile_velocity_reverse_forward     # {negative, positive}; set both
 float32[2] profile_deceleration_acceleration    # {negative, positive}; set both to zero to select default.
 float32 profile_jerk                            # positive; set to zero to select default.
 
-@sealed
+@extent 63 * 8
