@@ -1,0 +1,9 @@
+Vector4Ts.1.0 value
+float32[10] covariance_urt
+# Upper-right triangle of the covariance matrix:
+#       0   1   2   3
+#   0   x00 x01 x02 x03
+#   1       x04 x05 x06
+#   2           x07 x08
+#   3               x09
+@sealed
