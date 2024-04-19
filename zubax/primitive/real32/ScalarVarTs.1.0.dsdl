@@ -1,3 +1,4 @@
-ScalarTs.1.0 value
+uavcan.time.SynchronizedTimestamp.1.0 timestamp
+Scalar.1.0 value
 float32 error_variance
 @sealed

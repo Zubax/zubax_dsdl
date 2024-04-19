@@ -1,4 +1,5 @@
-Vector5Ts.1.0 value
+uavcan.time.SynchronizedTimestamp.1.0 timestamp
+Vector5.1.0 value
 float32[15] covariance_urt
 # Upper-right triangle of the covariance matrix:
 #       0   1   2   3   4
