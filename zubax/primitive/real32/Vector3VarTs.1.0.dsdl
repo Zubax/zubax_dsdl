@@ -1,3 +1,4 @@
-Vector3Ts.1.0 value
+uavcan.time.SynchronizedTimestamp.1.0 timestamp
+Vector3.1.0 value
 float32[6] covariance_urt  # Upper-right triangle of the covariance matrix.
 @sealed
