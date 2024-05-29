@@ -1,0 +1,3 @@
+uavcan.time.SynchronizedTimestamp.1.0 timestamp
+String1K.1.0 value
+@sealed
