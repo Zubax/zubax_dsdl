@@ -1,8 +1,6 @@
 # Zubax EPM status feedback message.
 # This type is a structural subtype of uavcan.primitive.scalar.Bit.
 
-@deprecated  # Use the stable version instead.
-
 bool magnetized
 # True if the magnet is currently turned on.
 # The value is a best guess if remagnetization is currently in progress.
