@@ -1,0 +1,50 @@
+# Request partial file content from the remote.
+# The array capacities are intended to be overridable; for example, a memory-limited embedded node using this
+# type to read files from a remote may set the path capacity to 128 bytes and the data capacity to 256 bytes.
+
+int48 seek
+# Read offset in bytes. A non-negative value specifies the offset from the origin; a negative value specifies the
+# offset from the point two bytes past the last byte of the file. Given contents "abcdef", offset values point to:
+#
+#   Offset  Points to
+#    1      b
+#    0      a
+#   -1      immediately past f; append on write, return empty on read
+#   -2      f
+#   -7      a
+#   -8      implementation-defined
+#
+# If the file is empty, 0 and -1 are equivalent. Negative seek values pointing before the origin are handled in an
+# implementation-defined way. Negative seeks may result in ERROR_SEEK if not supported.
+
+uint16 size
+# Read at most this many bytes.
+# This can be used by resource-constrained nodes to specify how much data they are ready to accept.
+
+void16
+
+utf8[<=1024] path
+# Resource-limited nodes may override the capacity.
+
+@assert _offset_.min == 8 * 12
+@extent 2048 * 8
+
+---
+
+int48 seek
+# The offset of the first data byte relative to the file origin, always nonnegative.
+# Can be used to check the file size by writing zero bytes at seek=-1.
+
+Error.0.1 error
+
+bool end        # Last data byte is the last byte of entry.
+void23          # May be extended with extra flags in the future, e.g. directory, immutable...
+
+byte[<2**16] data
+# Empty data indicates that seek points past the end.
+# If error is non-zero, this field may contain implementation-defined additional error context.
+# The size cannot exceed the size specified in the request.
+# Memory-constrained nodes thus can arbitrarily override the array capacity and set the size accordingly.
+
+@assert _offset_.min == 8 * 12
+@sealed

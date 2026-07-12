@@ -1,0 +1,14 @@
+uint4 ERROR_OK          = 0
+uint4 ERROR_SEEK        = 1     # Entry is not seekable.
+uint4 ERROR_SUPPORT     = 2     # Requested protocol feature is not implemented.
+uint4 ERROR_EXISTENCE   = 3     # Entry does not exist when it should, or exists when it shouldn't.
+uint4 ERROR_KIND        = 4     # E.g., attempted to write an entry which is a directory.
+uint4 ERROR_CAPACITY    = 5     # Out of storage space or entry size limit.
+uint4 ERROR_PERMISSION  = 6     # E.g., entry is not mutable.
+uint4 ERROR_RUNTIME     = 7     # Error coming from the low-level execution environment; e.g., IO error.
+uint4 ERROR_OTHER       = 15
+uint4 error
+
+void4
+
+@sealed
