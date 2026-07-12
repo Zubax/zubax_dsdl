@@ -1,9 +1,0 @@
-# 29-bit acceptance filter configuration.
-
-uint29 identifier
-void3
-
-uint29 mask
-void3
-
-@sealed
