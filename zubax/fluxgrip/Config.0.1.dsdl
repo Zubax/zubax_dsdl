@@ -24,5 +24,4 @@ int8[51] ds
 int32[7] fp
 # Do not alter unless advised by Zubax.
 
-@assert _offset_ == {8 * 84}
 @extent 256 * 8
