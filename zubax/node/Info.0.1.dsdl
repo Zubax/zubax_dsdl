@@ -1,0 +1,27 @@
+# Generic node info.
+
+uint64 unique_id
+# For embedded devices this should be tied to the physical hardware identity (e.g., chip UID hash, unique serial, etc.)
+# for traceability. Otherwise no requirements apply other than global uniqueness (a true random roll is fine).
+# This field must always be populated and nonzero.
+
+uint64 product_id
+# Uniquely identifies the make and model in a machine-friendly format. Semantics TBD.
+
+uint64 software_version
+uint64 software_identity
+uint64 software_trace
+# The software_version is ultimately product-specific but it follows the general principle of placing the most stable
+# numbers at the highest bits (e.g., major version), with the more volatile fields placed toward the lowest bits
+# (e.g., build number or timestamp); e.g., major<<48|minor<<32|date. The idea is to provide total ordering by version.
+#
+# The software_identity is an optional fingerprint of the executable and its environment, e.g., binary hash.
+# The trace is some optional product-specific information for traceability purposes (e.g., git commit hash).
+
+@assert _offset_ == {40 * 8}
+
+utf8[<=39] product_name
+# Permanent hierarchical name identifying the make and model. E.g.: "com.zubax.fluxgrip.fg401ma". Required non-empty.
+
+@assert _offset_.max == 80 * 8
+@extent 128 * 8
