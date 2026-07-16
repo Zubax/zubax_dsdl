@@ -1,0 +1,75 @@
+# A structural subtype of zubax.node.Manage.
+# Currently it looks odd because DSDL doesn't yet have built-in support for subtyping.
+# Eventually it will replace the leading variants with something like `@extend zubax.node.Manage`.
+
+@union
+
+uint16 STRING_CAPACITY = 256
+
+zubax.primitive.Empty.1.0 get_info
+utf8[<=STRING_CAPACITY] remap
+bool restart
+
+utf8[<=STRING_CAPACITY] command
+# To update the firmware, send the following command (case-sensitive) with the .bin file name and topic name;
+# the node will download the firmware from that topic using zubax.file.Read, and then reboot to install it:
+#
+#       upd <file-name> <topic-name>
+
+zubax.primitive.Empty.1.0 reserved_tag_04
+zubax.primitive.Empty.1.0 reserved_tag_05
+zubax.primitive.Empty.1.0 reserved_tag_06
+zubax.primitive.Empty.1.0 reserved_tag_07
+zubax.primitive.Empty.1.0 reserved_tag_08
+zubax.primitive.Empty.1.0 reserved_tag_09
+zubax.primitive.Empty.1.0 reserved_tag_10
+zubax.primitive.Empty.1.0 reserved_tag_11
+zubax.primitive.Empty.1.0 reserved_tag_12
+zubax.primitive.Empty.1.0 reserved_tag_13
+zubax.primitive.Empty.1.0 reserved_tag_14
+zubax.primitive.Empty.1.0 reserved_tag_15
+zubax.primitive.Empty.1.0 reserved_tag_16
+zubax.primitive.Empty.1.0 reserved_tag_17
+zubax.primitive.Empty.1.0 reserved_tag_18
+zubax.primitive.Empty.1.0 reserved_tag_19
+
+# FluxGrip-specific commands follow.
+
+Config.0.1[<=1] configure
+# If nonempty, apply the new configuration. If empty, read the current one. A restart is needed to save/apply.
+# Result: config | (error)
+
+@extent (1024-8) * 8
+
+---
+
+uint16 STRING_CAPACITY = 256
+
+zubax.primitive.Empty.1.0 success
+zubax.primitive.Empty.1.0 unsupported
+uint32                    invalid           # implementation-specific code
+uint32                    refused           # implementation-specific code
+uint32                    internal_error    # implementation-specific code
+zubax.node.Info.0.1       info
+uint8[<=STRING_CAPACITY]  output            # Mostly intended for the command result.
+
+zubax.primitive.Empty.1.0 reserved_tag_07
+zubax.primitive.Empty.1.0 reserved_tag_08
+zubax.primitive.Empty.1.0 reserved_tag_09
+zubax.primitive.Empty.1.0 reserved_tag_10
+zubax.primitive.Empty.1.0 reserved_tag_11
+zubax.primitive.Empty.1.0 reserved_tag_12
+zubax.primitive.Empty.1.0 reserved_tag_13
+zubax.primitive.Empty.1.0 reserved_tag_14
+zubax.primitive.Empty.1.0 reserved_tag_15
+zubax.primitive.Empty.1.0 reserved_tag_16
+zubax.primitive.Empty.1.0 reserved_tag_17
+zubax.primitive.Empty.1.0 reserved_tag_18
+zubax.primitive.Empty.1.0 reserved_tag_19
+
+# FluxGrip-specific commands follow.
+
+Config.0.1 config
+# The current (applied) configuration.
+
+@extent (1024-8) * 8
