@@ -1,4 +1,4 @@
-uavcan.time.SynchronizedTimestamp.1.0 timestamp
+zubax.Timestamp.1.0 timestamp
 Vector8.1.0 value
 float32[36] covariance_urt
 # Upper-right triangle of the covariance matrix:

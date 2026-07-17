@@ -1,0 +1,12 @@
+# Microsecond-resolution timestamp that may or may not be network-synchronized depending on usage.
+
+uint53 UNKNOWN = 0
+
+truncated uint53 microsecond
+# The number of microseconds that have passed since some arbitrary moment in the past.
+# The moment of origin (i.e., the time base) is defined per-application.
+
+void3
+
+@assert _offset_ == {7*8}
+@sealed
