@@ -10,13 +10,13 @@ uint64 product_id
 
 uint64 software_version
 uint64 software_identity
-uint64 software_trace
 # The software_version is ultimately product-specific but it follows the general principle of placing the most stable
 # numbers at the highest bits (e.g., major version), with the more volatile fields placed toward the lowest bits
 # (e.g., build number or timestamp); e.g., major<<48|minor<<32|date. The idea is to provide total ordering by version.
 #
 # The software_identity is an optional fingerprint of the executable and its environment, e.g., binary hash.
-# The trace is some optional product-specific information for traceability purposes (e.g., git commit hash).
+
+void64
 
 @assert _offset_ == {40 * 8}
 
