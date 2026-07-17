@@ -1,3 +1,0 @@
-uint8[8192] value
-@assert _offset_ % 8 == {0}
-@sealed
