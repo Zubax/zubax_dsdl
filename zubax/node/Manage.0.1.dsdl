@@ -13,18 +13,18 @@ zubax.primitive.Empty.1.0 get_info
 # Results: info
 
 utf8[<=STRING_CAPACITY] remap
-# Set the Cyphal topic remap string of the form `from1=to1 from2=to2 ...`.
+# Set the Cyphal topic remap string of the form `from1=to1 from2=to2 ...`. Must be supported.
 # The namespace is set as `=namespace` (the `from` part is omitted).
-# Results: success | (error)
+# Results: success | invalid | internal_error
 
 bool restart
 # Some nodes require a restart before the configuration changes are committed into memory and take effect.
 # If true, also perform a factory reset, if applicable (reset configuration to defaults).
-# Results: success | (error)
+# Results: success | unsupported | invalid | refused | internal_error
 
 utf8[<=STRING_CAPACITY] command
 # A node-specific shell command.
-# Results: success | output | (error)
+# Results: (any)
 
 zubax.primitive.Empty.1.0 reserved_tag_04
 zubax.primitive.Empty.1.0 reserved_tag_05
@@ -45,9 +45,11 @@ zubax.primitive.Empty.1.0 reserved_tag_19
 
 # Node-specific variants follow in subtypes.
 
-@extent (1024-8) * 8
+@extent 1016 * 8
 
 ---
+
+@union
 
 uint16 STRING_CAPACITY = 256
 
@@ -75,4 +77,4 @@ zubax.primitive.Empty.1.0 reserved_tag_19
 
 # Node-specific variants follow in subtypes.
 
-@extent (1024-8) * 8
+@extent 1016 * 8

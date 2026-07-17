@@ -1,9 +1,5 @@
-# FluxGrip device configuration. Publish this message on the node-private config topic.
-# The new configuration is persisted when the node is restarted.
+# FluxGrip device configuration. The new configuration is persisted when the node is restarted.
 # The Cyphal topic remap string is configured separately.
-
-uint32 MAGIC_VALID = 0x20676663     # "cfg "
-uint32 magic
 
 uint8 VERSION_VALID = 1
 uint8 version

@@ -7,13 +7,22 @@
 uint16 STRING_CAPACITY = 256
 
 zubax.primitive.Empty.1.0 get_info
+# Return the Info struct. Must be supported.
+# Results: info
+
 utf8[<=STRING_CAPACITY] remap
+# Set the Cyphal topic remap string of the form `from1=to1 from2=to2 ...`. Must be supported.
+# The namespace is set as `=namespace` (the `from` part is omitted).
+# Results: success | invalid | internal_error
+
 bool restart
+# Some nodes require a restart before the configuration changes are committed into memory and take effect.
+# If true, also perform a factory reset, if applicable (reset configuration to defaults).
+# Results: success | unsupported | invalid | refused | internal_error
 
 utf8[<=STRING_CAPACITY] command
 # To update the firmware, send the following command (case-sensitive) with the .bin file name and topic name;
 # the node will download the firmware from that topic using zubax.file.Read, and then reboot to install it:
-#
 #       upd <file-name> <topic-name>
 
 zubax.primitive.Empty.1.0 reserved_tag_04
@@ -39,9 +48,11 @@ Config.0.1[<=1] configure
 # If nonempty, apply the new configuration. If empty, read the current one. A restart is needed to save/apply.
 # Result: config | (error)
 
-@extent (1024-8) * 8
+@extent 270 * 8
 
 ---
+
+@union
 
 uint16 STRING_CAPACITY = 256
 
@@ -72,4 +83,4 @@ zubax.primitive.Empty.1.0 reserved_tag_19
 Config.0.1 config
 # The current (applied) configuration.
 
-@extent (1024-8) * 8
+@extent 270 * 8
