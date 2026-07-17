@@ -5,16 +5,22 @@ uint64 unique_id
 # for traceability. Otherwise no requirements apply other than global uniqueness (a true random roll is fine).
 # This field must always be populated and nonzero.
 
-uint64 product_id
-# Uniquely identifies the make and model in a machine-friendly format. Semantics TBD.
+uint64 product_type
+# Uniquely identifies the make and model in a machine-friendly format. This field must always be populated and nonzero.
+# The 16 most significant bits contain the vendor ID. The rest is product-specific, but the recommended layout is:
+#   vendor_id:16 | product_id:16 | variant:32
+# Where the variant may encode product-specific information such as PCB version, options, sub-revisions, etc.
+# The vendor-IDs are listed in an adjacent file; anyone can request a vendor-ID by submitting a pull request.
 
 uint64 software_version
+# Composes bitfields identifying the exact software revision and providing ordering by version.
+# The most stable numbers should be placed at the highest bits (e.g., major version),
+# the more volatile fields placed toward the lowest bits (e.g., build number or timestamp).
+# The recommended layout is (follows MCUboot and other industry examples):
+#   major:8 | minor:8 | revision:16 | build:32
+
 uint64 software_identity
-# The software_version is ultimately product-specific but it follows the general principle of placing the most stable
-# numbers at the highest bits (e.g., major version), with the more volatile fields placed toward the lowest bits
-# (e.g., build number or timestamp); e.g., major<<48|minor<<32|date. The idea is to provide total ordering by version.
-#
-# The software_identity is an optional fingerprint of the executable and its environment, e.g., binary hash.
+# An optional fingerprint of the executable and its environment, e.g., binary hash, ELF build-ID, etc.
 
 void64
 

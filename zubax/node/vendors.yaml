@@ -1,0 +1,4 @@
+# Claim a vendor-ID by submitting a pull request to this file.
+
+local: 0    # For experimental/local use.
+zubax: 1    # Zubax Robotics.
