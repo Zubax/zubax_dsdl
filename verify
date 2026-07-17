@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# TODO: https://github.com/UAVCAN/public_regulated_data_types/issues/68
 
 import sys
 import time
@@ -23,14 +22,8 @@ def on_print(file_path, line, value):
 
 
 output = []
-for ns in ['zubax', 'zubax_internet']:
-    output += pydsdl.read_namespace(
-        ns,
-        [
-            'public_regulated_data_types/uavcan',
-        ],
-        print_output_handler=on_print
-    )
+for ns in ['zubax']:
+    output += pydsdl.read_namespace(ns, [], print_output_handler=on_print)
 
 for t in output:
     text = open(t.source_file_path).read()
