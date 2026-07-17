@@ -2,7 +2,7 @@
 # Therefore, the velocity is specified in the parent coordinate frame.
 
 Point.0.1 position
-uavcan.si.unit.velocity.Vector3.1.0 velocity
+float32[3] velocity
 
 @sealed
 @assert _offset_ == zubax.physics.kinematics.cartesian.PointState.0.1._bit_length_

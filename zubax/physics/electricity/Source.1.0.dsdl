@@ -6,7 +6,7 @@ Power.1.0 power
 # Positive current flows into the source (power sinking).
 # Negative current flows from the source to the power supply network (power sourcing).
 
-uavcan.si.unit.energy.Scalar.1.0 energy
+float32 energy
 # A pessimistic estimate of the amount of energy that can be reclaimed from the source in its current state.
 # This may be dependent on the state of charge/health (for batteries), temperature, load profile, humidity, etc.
 # Negative values may be reported to indicate overdischarge or depletion of the reserve energy.
@@ -20,7 +20,7 @@ uavcan.si.unit.energy.Scalar.1.0 energy
 # For the sake of illustration, if this type was used to represent the state of a braking resistor,
 # then this value would be negative indicating the amount of dissipated energy.
 
-uavcan.si.unit.energy.Scalar.1.0 full_energy
+float32 full_energy
 # A pessimistic estimate of the amount of energy that can be reclaimed from a fresh source (fully fueled generator
 # or a fully charged battery) under the current conditions (SoH, temperature, load profile, etc).
 
