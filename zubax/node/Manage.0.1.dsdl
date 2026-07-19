@@ -20,8 +20,8 @@ utf8[<=STRING_CAPACITY] remap
 bool reveal
 # If true, make the node reveal its identity through some recognizable physical signal, such as lighting an LED,
 # displaying a message, producing sound, etc. This is used for mapping network nodes to their physical bodies.
-# Normally, the reveal signal should remain active until a false reveal command it sent, or until the next
-# substantial state change of the node (e.g., reboot).
+# How long the reveal signal remains active is implementation-defined. Typically, the signal may remain active
+# until a false reveal command it sent, or until the next substantial state change of the node (e.g., reboot).
 # Results: success | unsupported | internal_error
 
 utf8[<=STRING_CAPACITY] command
