@@ -15,7 +15,7 @@ zubax.Empty.1.0 get_info
 utf8[<=STRING_CAPACITY] remap
 # Set the Cyphal topic remap string of the form `from1=to1 from2=to2 ...`. Must be supported.
 # The node namespace is set as the leading `=namespace` token (the `from` part is omitted, must be the first entry).
-# Results: success | invalid | internal_error
+# Results: success | invalid | refused | internal_error
 
 bool reveal
 # If true, make the node reveal its identity through some recognizable physical signal, such as lighting an LED,
