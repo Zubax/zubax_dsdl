@@ -11,6 +11,7 @@ uint64 product_type
 #   vendor_id:16 | product_id:16 | variant:32
 # Where the variant may encode product-specific information such as PCB version, options, sub-revisions, etc.
 # The vendor-IDs are listed in an adjacent file; anyone can request a vendor-ID by submitting a pull request.
+# The vendor-ID of zero is reserved for local/experimental use; in this case the remaining 48 bits should be random.
 
 uint64 software_version
 # Composes bitfields identifying the exact software revision and providing ordering by version.
