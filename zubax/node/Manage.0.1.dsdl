@@ -14,13 +14,15 @@ zubax.Empty.1.0 get_info
 
 utf8[<=STRING_CAPACITY] remap
 # Set the Cyphal topic remap string of the form `from1=to1 from2=to2 ...`. Must be supported.
-# The namespace is set as `=namespace` (the `from` part is omitted).
+# The node namespace is set as the leading `=namespace` token (the `from` part is omitted, must be the first entry).
 # Results: success | invalid | internal_error
 
-bool restart
-# Some nodes require a restart before the configuration changes are committed into memory and take effect.
-# If true, also perform a factory reset, if applicable (reset configuration to defaults).
-# Results: success | unsupported | invalid | refused | internal_error
+bool reveal
+# If true, make the node reveal its identity through some recognizable physical signal, such as lighting an LED,
+# displaying a message, producing sound, etc. This is used for mapping network nodes to their physical bodies.
+# Normally, the reveal signal should remain active until a false reveal command it sent, or until the next
+# substantial state change of the node (e.g., reboot).
+# Results: success | unsupported | internal_error
 
 utf8[<=STRING_CAPACITY] command
 # A node-specific shell command.
@@ -53,8 +55,8 @@ zubax.Empty.1.0 reserved_tag_19
 
 uint16 STRING_CAPACITY = 256
 
-zubax.Empty.1.0 success
-zubax.Empty.1.0 unsupported
+zubax.Empty.1.0           success
+zubax.Empty.1.0           unsupported
 uint32                    invalid           # implementation-specific code
 uint32                    refused           # implementation-specific code
 uint32                    internal_error    # implementation-specific code

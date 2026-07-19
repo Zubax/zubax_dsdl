@@ -12,18 +12,19 @@ zubax.Empty.1.0 get_info
 
 utf8[<=STRING_CAPACITY] remap
 # Set the Cyphal topic remap string of the form `from1=to1 from2=to2 ...`. Must be supported.
-# The namespace is set as `=namespace` (the `from` part is omitted).
+# The node namespace is set as the leading `=namespace` token (the `from` part is omitted, must be the first entry).
 # Results: success | invalid | internal_error
 
-bool restart
-# Some nodes require a restart before the configuration changes are committed into memory and take effect.
-# If true, also perform a factory reset, if applicable (reset configuration to defaults).
-# Results: success | unsupported | invalid | refused | internal_error
+bool reveal
+# If true, make the node reveal its identity through some recognizable physical signal, such as lighting an LED,
+# displaying a message, producing sound, etc. This is used for mapping network nodes to their physical bodies.
+# Normally, the reveal signal should remain active until a false reveal command it sent, or until the next
+# substantial state change of the node (e.g., reboot).
+# Results: success | unsupported | internal_error
 
 utf8[<=STRING_CAPACITY] command
-# To update the firmware, send the following command (case-sensitive) with the .bin file name and topic name;
-# the node will download the firmware from that topic using zubax.file.Read, and then reboot to install it:
-#       upd <file-name> <topic-name>
+# A node-specific shell command.
+# Results: (any)
 
 zubax.Empty.1.0 reserved_tag_04
 zubax.Empty.1.0 reserved_tag_05
@@ -44,9 +45,12 @@ zubax.Empty.1.0 reserved_tag_19
 
 # FluxGrip-specific commands follow.
 
+bool restart
+# If false, just restart. If true, reset to factory defaults and restart.
+
 Config.0.1[<=1] configure
 # If nonempty, apply the new configuration. If empty, read the current one. A restart is needed to save/apply.
-# Result: config | (error)
+# Result: config | invalid | internal_error
 
 @extent 270 * 8
 
@@ -56,8 +60,8 @@ Config.0.1[<=1] configure
 
 uint16 STRING_CAPACITY = 256
 
-zubax.Empty.1.0 success
-zubax.Empty.1.0 unsupported
+zubax.Empty.1.0           success
+zubax.Empty.1.0           unsupported
 uint32                    invalid           # implementation-specific code
 uint32                    refused           # implementation-specific code
 uint32                    internal_error    # implementation-specific code
