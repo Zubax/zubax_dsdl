@@ -1,0 +1,29 @@
+# Zubax FluxGrip electropermanent magnet status feedback message.
+
+bool magnetized
+# Preserved for wire compatibility with v1.0. Reports incorrect state during state transition. Do not use.
+
+int3 remagnetization
+# Preserved for wire compatibility with v1.0. Do not use.
+
+void1
+
+int3 STATE_FAULT            = -4    # Inoperable; use the fault clear command to recover. Magnet state unknown.
+int3 STATE_DEMAGNETIZED     = -2
+int3 STATE_DEMAGNETIZATION  = -1    # Demagnetization in progress
+int3 STATE_UNKNOWN          =  0
+int3 STATE_MAGNETIZATION    = +1    # Magnetization in progress
+int3 STATE_MAGNETIZED       = +2
+int3 state
+# The most accurate magnet state report.
+
+@assert _offset_ == {8}
+
+uint24[2] cycles_on_off
+# The number of magnetization and demagnetization cycles commenced, respectively, since the device was powered on.
+# The values are incremented immediately at the commencement of the cycle.
+
+uint8 error_code
+# Any value other than zero indicates an error.
+
+@extent 63 * 8

@@ -1,4 +1,4 @@
-uavcan.time.SynchronizedTimestamp.1.0 timestamp
+zubax.Timestamp.1.0 timestamp
 StateVar.0.1 value
 
 @sealed

@@ -1,0 +1,22 @@
+# FluxGrip device configuration. The new configuration is persisted when the node is restarted.
+# The Cyphal topic remap string is configured separately.
+
+uint8 VERSION_VALID = 1
+uint8 version
+
+uint3 prio_feedback     # Message priority of the feedback topic. Lower values have higher priority.
+void20
+bool enable_second_can_interface
+
+uint32 can_bitrate      # Nominal bitrate of all CAN interfaces [bit/s].
+
+void64
+void64
+void64
+void64
+
+int32[7] fp
+int8[64] ds
+# Do not alter unless advised by Zubax.
+
+@extent 256 * 8

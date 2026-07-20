@@ -1,4 +1,0 @@
-@deprecated
-uavcan.time.SynchronizedTimestamp.1.0 timestamp
-DoF3rd.1.0 value
-@sealed

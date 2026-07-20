@@ -1,0 +1,4 @@
+# Claim a vendor-ID by submitting a pull request to this file.
+
+local: 0    # For experimental/local use. The product-ID and the variant (48 bits total) should be set randomly.
+zubax: 1    # Zubax Robotics.

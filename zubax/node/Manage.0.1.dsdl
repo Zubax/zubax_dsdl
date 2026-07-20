@@ -1,0 +1,82 @@
+# Generic, common set of functions that normally should be supported by most nodes.
+# Not all functions are mandatory; if such are invoked, they should return the not supported error.
+# Nodes are encouraged to extend (subtype) this type in node-specific management RPCs.
+#
+# Currently the definition looks a bit awkward because DSDL does not yet support tag reservation.
+
+@union
+
+uint16 STRING_CAPACITY = 256
+
+zubax.Empty.1.0 get_info
+# Return the Info struct. Must be supported.
+# Results: info
+
+utf8[<=STRING_CAPACITY] remap
+# Set the Cyphal topic remap string of the form `from1=to1 from2=to2 ...`. Must be supported.
+# The node namespace is set as the leading `=namespace` token (the `from` part is omitted, must be the first entry).
+# Results: success | invalid | refused | internal_error
+
+bool reveal
+# If true, make the node reveal its identity through some recognizable physical signal, such as lighting an LED,
+# displaying a message, producing sound, etc. This is used for mapping network nodes to their physical bodies.
+# How long the reveal signal remains active is implementation-defined. Typically, the signal may remain active
+# until a false reveal command it sent, or until the next substantial state change of the node (e.g., reboot).
+# Results: success | unsupported | internal_error
+
+utf8[<=STRING_CAPACITY] command
+# A node-specific shell command.
+# Results: (any)
+
+zubax.Empty.1.0 reserved_tag_04
+zubax.Empty.1.0 reserved_tag_05
+zubax.Empty.1.0 reserved_tag_06
+zubax.Empty.1.0 reserved_tag_07
+zubax.Empty.1.0 reserved_tag_08
+zubax.Empty.1.0 reserved_tag_09
+zubax.Empty.1.0 reserved_tag_10
+zubax.Empty.1.0 reserved_tag_11
+zubax.Empty.1.0 reserved_tag_12
+zubax.Empty.1.0 reserved_tag_13
+zubax.Empty.1.0 reserved_tag_14
+zubax.Empty.1.0 reserved_tag_15
+zubax.Empty.1.0 reserved_tag_16
+zubax.Empty.1.0 reserved_tag_17
+zubax.Empty.1.0 reserved_tag_18
+zubax.Empty.1.0 reserved_tag_19
+
+# Node-specific variants follow in subtypes.
+
+@extent 1016 * 8
+
+---
+
+@union
+
+uint16 STRING_CAPACITY = 256
+
+zubax.Empty.1.0           success
+zubax.Empty.1.0           unsupported
+uint32                    invalid           # implementation-specific code
+uint32                    refused           # implementation-specific code
+uint32                    internal_error    # implementation-specific code
+Info.0.1                  info
+uint8[<=STRING_CAPACITY]  output            # Mostly intended for the command result.
+
+zubax.Empty.1.0 reserved_tag_07
+zubax.Empty.1.0 reserved_tag_08
+zubax.Empty.1.0 reserved_tag_09
+zubax.Empty.1.0 reserved_tag_10
+zubax.Empty.1.0 reserved_tag_11
+zubax.Empty.1.0 reserved_tag_12
+zubax.Empty.1.0 reserved_tag_13
+zubax.Empty.1.0 reserved_tag_14
+zubax.Empty.1.0 reserved_tag_15
+zubax.Empty.1.0 reserved_tag_16
+zubax.Empty.1.0 reserved_tag_17
+zubax.Empty.1.0 reserved_tag_18
+zubax.Empty.1.0 reserved_tag_19
+
+# Node-specific variants follow in subtypes.
+
+@extent 1016 * 8

@@ -5,7 +5,7 @@
 float64 latitude   # [radian]
 float64 longitude  # [radian]
 
-uavcan.si.unit.length.WideScalar.1.0 altitude
+float64 altitude
 # Distance between the local mean sea level (MSL) and the focal point of the antenna. Positive altitude above the MSL.
 
 @sealed
