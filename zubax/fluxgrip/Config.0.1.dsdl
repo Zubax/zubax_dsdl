@@ -15,7 +15,7 @@ void64
 void64
 void64
 
-int32[7] fp
+int32[11] fp
 int8[64] ds
 # Do not alter unless advised by Zubax.
 
