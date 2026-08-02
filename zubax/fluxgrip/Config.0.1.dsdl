@@ -17,6 +17,7 @@ void64
 
 int32 flyback_period_ns       # PWM period [ns].
 int32[9] duty_cycle           # Target duty cycle for each bus-voltage bucket, scaled by 1e6.
+int32[9] min_duty_cycle       # Minimum duty cycle for each bus-voltage bucket, scaled by 1e6.
 int32[9] ramp_cap_voltage     # Capacitor voltage where the target duty is reached for each bucket [V].
 int8[64] ds
 # Do not alter unless advised by Zubax.
