@@ -1,0 +1,15 @@
+# FluxGrip configuration. A restart saves and applies a new configuration.
+uint8 VERSION_VALID = 2
+uint8 version
+uint3 prio_feedback
+void20
+bool enable_second_can_interface
+uint32 can_bitrate
+int32 flyback_period_ns
+uint8[9] duty_bus_voltage    # Strictly increasing supply-voltage points [V], first 5 and last 30.
+uint16[4] duty_cap_voltage   # Strictly increasing capacitor-voltage points [V], first 0, last <= 800.
+uint16[36] duty_curve        # Duty scaled by 1000, nine bus-major rows of four cap-voltage points.
+# Bilinear interpolation; clamp to the nearest grid edge. Every duty must be 1..999.
+# Below 3.5 V input the firmware inhibits switching regardless of the curve.
+int8[64] ds                 # Demagnetization pulse sequence, signed percent of 650 V; zero terminated.
+@extent 256 * 8
